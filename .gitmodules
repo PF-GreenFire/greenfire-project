@@ -1,0 +1,3 @@
+[submodule "GreenFire-key"]
+	path = GreenFire-key
+	url = https://github.com/PF-GreenFire/GreenFire-key.git
