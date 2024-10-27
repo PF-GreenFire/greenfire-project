@@ -14,8 +14,8 @@
 
     <insert id="registStoreCategory">
         INSERT INTO
-        tbl_store_category (store_category_name)
+            tbl_store_category (store_category_name)
         VALUES
-        (#{categoryName})
+            (#{categoryName})
     </insert>
 </mapper>
