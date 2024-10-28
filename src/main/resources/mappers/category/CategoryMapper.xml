@@ -5,14 +5,14 @@
 
 <mapper namespace="sisosolsol.greenfire.category.model.dao.CategoryMapper">
 
-    <insert id="registChallengeCategory">
+    <insert id="registChallengeCategory" useGeneratedKeys="true" keyProperty="categoryCode">
         INSERT INTO
             tbl_challenge_category (challenge_category_name)
         VALUES
             (#{categoryName})
     </insert>
 
-    <insert id="registStoreCategory">
+    <insert id="registStoreCategory" useGeneratedKeys="true" keyProperty="categoryCode">
         INSERT INTO
             tbl_store_category (store_category_name)
         VALUES

@@ -13,12 +13,13 @@ public class CategoryService {
 
     private final CategoryMapper categoryMapper;
 
-    public void registCategory(CategoryCreateDTO category) {
+    public int registCategory(CategoryCreateDTO category) {
         switch (category.getCategoryType()) {
             case CHALLENGE :
-                categoryMapper.registChallengeCategory(category); break;
+                categoryMapper.registChallengeCategory(category);break;
             case STORE:
                 categoryMapper.registStoreCategory(category); break;
         }
+        return category.getCategoryCode();
     }
 }

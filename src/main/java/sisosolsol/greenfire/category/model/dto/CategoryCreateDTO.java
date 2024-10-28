@@ -8,5 +8,6 @@ import sisosolsol.greenfire.category.model.type.CategoryType;
 @ToString
 public class CategoryCreateDTO {
     CategoryType categoryType;
+    Integer categoryCode;
     String categoryName;
 }
