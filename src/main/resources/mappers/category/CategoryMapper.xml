@@ -18,4 +18,22 @@
         VALUES
             (#{categoryName})
     </insert>
+
+    <update id="updateChallengeCategory">
+        UPDATE
+            tbl_challenge_category
+        SET
+            challenge_category_name = #{category.categoryName}
+        WHERE
+            challenge_category_code = #{categoryCode}
+    </update>
+
+    <update id="updateStoreCategory">
+        UPDATE
+            tbl_store_category
+        SET
+            store_category_name = #{category.categoryName}
+        WHERE
+            store_category_code = #{categoryCode}
+    </update>
 </mapper>
