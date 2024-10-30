@@ -31,4 +31,10 @@ public class CategoryController {
         return ResponseEntity.ok().body(category);
     }
 
+    @DeleteMapping("/{categoryCode}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer categoryCode,
+                                               @RequestBody CategoryType categoryType) {
+        categoryService.deleteCategory(categoryCode, categoryType);
+        return ResponseEntity.noContent().build();
+    }
 }
