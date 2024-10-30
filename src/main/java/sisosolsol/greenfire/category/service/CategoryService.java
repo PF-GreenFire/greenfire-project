@@ -37,4 +37,17 @@ public class CategoryService {
                 break;
         }
     }
+
+    public void deleteCategory(Integer categoryCode, CategoryType categoryType) {
+        // TODO: 각 카테고리에 등록된 챌린지/스토어가 없을 때에만 삭제 허용
+        int result = 0;
+        switch (categoryType) {
+            case CHALLENGE:
+                result = categoryMapper.deleteChallengeCategory(categoryCode);
+                break;
+            case STORE:
+                result = categoryMapper.deleteStoreCategory(categoryCode);
+                break;
+        }
+    }
 }

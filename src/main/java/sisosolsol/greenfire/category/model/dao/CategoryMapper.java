@@ -14,4 +14,8 @@ public interface CategoryMapper {
     int updateChallengeCategory(@Param("categoryCode") Integer categoryCode, @Param("category") CategoryUpdateDTO category);
 
     int updateStoreCategory(@Param("categoryCode") Integer categoryCode, @Param("category") CategoryUpdateDTO category);
+
+    int deleteChallengeCategory(Integer categoryCode);
+
+    int deleteStoreCategory(Integer categoryCode);
 }

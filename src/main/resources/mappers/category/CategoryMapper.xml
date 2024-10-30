@@ -36,4 +36,22 @@
         WHERE
             store_category_code = #{categoryCode}
     </update>
+
+    <update id="deleteChallengeCategory">
+        UPDATE
+            tbl_challenge_category
+        SET
+            status = 'DELETED'
+        WHERE
+            challenge_category_code = #{categoryCode}
+    </update>
+
+    <update id="deleteStoreCategory">
+        UPDATE
+            tbl_store_category
+        SET
+            status = 'DELETED'
+        WHERE
+            store_category_code = #{categoryCode}
+    </update>
 </mapper>
