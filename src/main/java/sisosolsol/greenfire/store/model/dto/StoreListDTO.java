@@ -17,7 +17,7 @@ public class StoreListDTO {
     private String storeName;
     private StoreStatus storeStatus;
     private StoreFoodType storeFoodType;
-//    private String storeCategoryName;
-//    private String storeImage;
+    private String storeCategoryName;
+    private String storeImage;
 
 }
