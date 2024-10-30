@@ -28,6 +28,8 @@
                 tbl_store_category c ON s.store_category_code = c.store_category_code
             LEFT JOIN
                 tbl_image i ON i.store_code = s.store_code
+            WHERE
+                s.store_status = 'APPROVE'
         </select>
 
 </mapper>
