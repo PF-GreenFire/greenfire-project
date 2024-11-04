@@ -1,4 +1,4 @@
-package sisosolsol.common;
+package sisosolsol.greenfire.common;
 
 import lombok.Getter;
 
