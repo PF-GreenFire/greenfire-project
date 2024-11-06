@@ -15,6 +15,7 @@ public class PostService {
 
     private final PostMapper postMapper;
 
+    @Transactional(readOnly = true)
     public List<SimplePostDTO> getChallengePostList(Integer challengeCode) {
         return postMapper.getChallengePostList(challengeCode);
     }
