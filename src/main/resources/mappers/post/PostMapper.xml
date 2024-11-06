@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sisosolsol.greenfire.post.model.dao.PostMapper">
+
+    <select id="getChallengePostList" resultType="sisosolsol.greenfire.post.model.dto.SimplePostDTO">
+        SELECT
+            p.post_code,
+            p.user_code,
+            u.name as writer,
+            p.created_at,
+            p.thumbnail,
+            p.post_type
+        FROM
+            tbl_post p
+            JOIN
+            tbl_user u on (p.user_code = u.user_code)
+        WHERE
+            p.post_status = 'ACTIVE'
+        AND
+            p.challenge_code = #{ challengeCode }
+        ORDER BY
+            p.created_at DESC
+    </select>
+
+</mapper>
