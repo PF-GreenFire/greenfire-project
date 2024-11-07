@@ -5,6 +5,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sisosolsol.greenfire.common.exception.BadRequestException;
+import sisosolsol.greenfire.common.exception.NotFoundException;
+import sisosolsol.greenfire.common.exception.type.ExceptionCode;
 import sisosolsol.greenfire.post.model.dao.PostMapper;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
@@ -30,10 +33,9 @@ public class PostService {
             postMapper.registChallengePost(post);
         } catch (DataAccessException e) {
             if (e instanceof DataIntegrityViolationException) {
-                // TODO: 예외처리
-                System.out.println("외래 키 제약 위반: " + e.getMessage());
+                throw new BadRequestException(ExceptionCode.InvalidForeignKeyException);
             } else {
-                System.out.println(" 또 다른 뭔가 있었나봐요 " + e.getMessage());
+                System.out.println("에러 발생" + e.getMessage());
             }
         }
         return post.getPostCode();
