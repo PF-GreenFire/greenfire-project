@@ -41,8 +41,15 @@
                 s.store_status = 'APPROVE'
         </select>
 
-        <!--  초록불 장소 신청 목록 조회 -->
-        <select id="findApplyStoreList" resultMap="applyStoreListResultMap">
+        <!-- 초록불 장소 신청 목록 토탈 갯수 조회 -->
+        <select id="countWaitingStores" resultType="int">
+            SELECT COUNT(*)
+            FROM tbl_store
+            WHERE store_status = 'WAITING'
+        </select>
+
+        <!-- 초록불 장소 신청 목록 페이징 조회 -->
+        <select id="findApplyStoreList" resultMap="applyStoreListResultMap" parameterType="sisosolsol.greenfire.common.page.SelectCriteria">
             SELECT
                 s.store_code,
                 s.created_at,
@@ -57,6 +64,8 @@
                 tbl_area a ON l.area_code = a.area_code
             WHERE
                 s.store_status = 'WAITING'
+            ORDER BY
+                s.created_at DESC
+            LIMIT #{limit} OFFSET #{offset}
         </select>
-
 </mapper>
