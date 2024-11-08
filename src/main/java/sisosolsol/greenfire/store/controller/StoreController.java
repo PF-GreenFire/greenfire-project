@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sisosolsol.greenfire.store.model.dto.ApplyStoreListDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 import sisosolsol.greenfire.store.service.StoreService;
 
@@ -17,10 +18,18 @@ public class StoreController {
 
     private  final StoreService storeService;
 
-    // 초록불 장소 목록 조회 TODO: 현재 위치 정보를 기반으로 반경 지도 목록을 보여주는 것으로 수정 예정
+    // 초록불 메인 장소 목록 조회 TODO: 현재 위치 정보를 기반으로 반경 지도 목록을 보여주는 것으로 수정 예정
     @GetMapping("/list")
     public ResponseEntity<List<StoreListDTO>> getStoreList() {
         List<StoreListDTO> storeList = storeService.getStoreList();
         return ResponseEntity.ok(storeList);
     }
+
+    // 초록불 장소 신청 목록 조회 TODO: 추후 관리자만 목록 조회 할수 있겠금 권한 체크 예정
+    @GetMapping("/apply/list")
+    public ResponseEntity<List<ApplyStoreListDTO>> getApplyStoreList() {
+        List<ApplyStoreListDTO> applyStoreList = storeService.getApplyStoreList();
+        return ResponseEntity.ok(applyStoreList);
+    }
+
 }
