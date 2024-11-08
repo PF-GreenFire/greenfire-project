@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sisosolsol.greenfire.challenge.model.dao.ChallengeMapper">
+
+    <insert id="registChallenge" useGeneratedKeys="true" keyProperty="challengeCode">
+        INSERT INTO
+            tbl_challenge (
+                challenge_name,
+                challenge_content,
+                recruitment_num,
+                start_date,
+                end_date,
+                host_member,
+                xp,
+                thumbnail_url,
+                challenge_category_code,
+                challenge_status,
+                created_at
+            )
+        VALUES
+            (
+                #{challengeName},
+                #{challengeContent},
+                #{recruitmentNum},
+                #{startDate},
+                #{endDate},
+                #{hostMember},
+                #{xp},
+                #{thumbnailUrl},
+                #{challengeCategoryCode},
+                #{challengeStatus},
+                #{createdAt}
+            )
+    </insert>
+
+</mapper>
