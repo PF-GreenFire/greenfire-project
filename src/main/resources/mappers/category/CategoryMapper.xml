@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sisosolsol.greenfire.category.model.dao.CategoryMapper">
+
+    <select id="getChallengeCategoryList" resultType="sisosolsol.greenfire.category.model.dto.CategoryDTO">
+        SELECT
+            challenge_category_code as categoryCode,
+            challenge_category_name as categoryName
+        FROM
+            tbl_challenge_category
+        WHERE
+            status = 'ACTIVE'
+        ORDER BY
+            challenge_category_code
+    </select>
+
+    <select id="getStoreCategoryList" resultType="sisosolsol.greenfire.category.model.dto.CategoryDTO">
+        SELECT
+            store_category_code as categoryCode,
+            store_category_name as categoryName
+        FROM
+            tbl_store_category
+        WHERE
+            status = 'ACTIVE'
+        ORDER BY
+            store_category_code
+    </select>
+
+    <insert id="registChallengeCategory" useGeneratedKeys="true" keyProperty="categoryCode">
+        INSERT INTO
+            tbl_challenge_category (challenge_category_name)
+        VALUES
+            (#{categoryName})
+    </insert>
+
+    <insert id="registStoreCategory" useGeneratedKeys="true" keyProperty="categoryCode">
+        INSERT INTO
+            tbl_store_category (store_category_name)
+        VALUES
+            (#{categoryName})
+    </insert>
+
+    <update id="updateChallengeCategory">
+        UPDATE
+            tbl_challenge_category
+        SET
+            challenge_category_name = #{category.categoryName}
+        WHERE
+            challenge_category_code = #{categoryCode}
+    </update>
+
+    <update id="updateStoreCategory">
+        UPDATE
+            tbl_store_category
+        SET
+            store_category_name = #{category.categoryName}
+        WHERE
+            store_category_code = #{categoryCode}
+    </update>
+
+    <update id="deleteChallengeCategory">
+        UPDATE
+            tbl_challenge_category
+        SET
+            status = 'DELETED'
+        WHERE
+            challenge_category_code = #{categoryCode}
+    </update>
+
+    <update id="deleteStoreCategory">
+        UPDATE
+            tbl_store_category
+        SET
+            status = 'DELETED'
+        WHERE
+            store_category_code = #{categoryCode}
+    </update>
+</mapper>
