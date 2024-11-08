@@ -9,7 +9,8 @@
             <result property="storeStatus" column="store_status"/>
             <result property="storeFoodType" column="store_food_type"/>
             <result property="storeCategoryName" column="store_category_name"/>
-            <result property="storeImage" column="file_name"/>
+            <result property="path" column="path"/>
+            <result property="fileName" column="file_name"/>
         </resultMap>
 
         <!--  초록불 장소 목록 조회 TODO: 현재 위치 정보를 기반으로 반경 지도 목록을 보여주는 것으로 수정 예정 -->
@@ -20,8 +21,9 @@
                 s.store_name,
                 s.store_status,
                 s.store_food_type,
-                c.store_category_name AS store_category_name,
-                i.file_name AS file_name
+                c.store_category_name,
+                i.path,
+                i.file_name
             FROM
                 tbl_store s
             LEFT JOIN
