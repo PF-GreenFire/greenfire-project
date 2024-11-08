@@ -2,16 +2,16 @@ package sisosolsol.greenfire.store.model.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import sisosolsol.greenfire.store.model.type.StoreFoodType;
-import sisosolsol.greenfire.store.model.type.StoreStatus;
+import sisosolsol.greenfire.common.enums.StoreFoodType;
+import sisosolsol.greenfire.common.enums.StoreStatus;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Getter
 @RequiredArgsConstructor
 public class StoreListDTO {
 
+    // 초록불 메인 장소 목록 조회용 DTO
     private Integer storeCode;
     private OffsetDateTime createdAt;
     private String storeName;
