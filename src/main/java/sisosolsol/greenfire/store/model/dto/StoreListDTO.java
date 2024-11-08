@@ -2,8 +2,8 @@ package sisosolsol.greenfire.store.model.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import sisosolsol.greenfire.common.enums.StoreFoodType;
-import sisosolsol.greenfire.common.enums.StoreStatus;
+import sisosolsol.greenfire.common.enums.store.StoreFoodType;
+import sisosolsol.greenfire.common.enums.store.StoreStatus;
 
 import java.time.OffsetDateTime;
 
