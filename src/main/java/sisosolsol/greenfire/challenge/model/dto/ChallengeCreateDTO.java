@@ -3,7 +3,7 @@ package sisosolsol.greenfire.challenge.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import sisosolsol.greenfire.common.ChallengeStatus;
+import sisosolsol.greenfire.common.enums.ChallengeStatus;
 
 import java.time.LocalDateTime;
 
