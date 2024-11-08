@@ -2,8 +2,10 @@ package sisosolsol.greenfire.post.model.dto;
 
 import lombok.Getter;
 import lombok.ToString;
-import sisosolsol.greenfire.post.model.type.PostType;
+import sisosolsol.greenfire.image.model.dto.ImageUploadDTO;
+import sisosolsol.greenfire.common.enums.post.PostType;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,4 +18,5 @@ public class PostCreateDTO {
     private Integer challengeCode;
     private String thumbnail;
     private UUID userCode;
+    private List<ImageUploadDTO> images;
 }

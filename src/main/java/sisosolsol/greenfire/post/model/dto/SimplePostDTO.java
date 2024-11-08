@@ -3,7 +3,7 @@ package sisosolsol.greenfire.post.model.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.ToString;
-import sisosolsol.greenfire.post.model.type.PostType;
+import sisosolsol.greenfire.common.enums.post.PostType;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

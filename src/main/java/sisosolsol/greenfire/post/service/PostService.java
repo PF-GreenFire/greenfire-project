@@ -6,12 +6,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sisosolsol.greenfire.common.exception.BadRequestException;
-import sisosolsol.greenfire.common.exception.NotFoundException;
 import sisosolsol.greenfire.common.exception.type.ExceptionCode;
+import sisosolsol.greenfire.image.model.dto.ImageUploadDTO;
+import sisosolsol.greenfire.common.enums.image.ImageType;
+import sisosolsol.greenfire.image.service.ImageService;
 import sisosolsol.greenfire.post.model.dao.PostMapper;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
-import sisosolsol.greenfire.post.model.type.PostType;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class PostService {
 
     private final PostMapper postMapper;
+    private final ImageService imageService;
 
     @Transactional(readOnly = true)
     public List<SimplePostDTO> getChallengePostList(Integer challengeCode) {
@@ -37,6 +39,10 @@ public class PostService {
             } else {
                 System.out.println("에러 발생" + e.getMessage());
             }
+        }
+
+        for (ImageUploadDTO image : post.getImages()) {
+            imageService.saveImage(ImageType.POST, post.getPostCode(), image);
         }
         return post.getPostCode();
     }

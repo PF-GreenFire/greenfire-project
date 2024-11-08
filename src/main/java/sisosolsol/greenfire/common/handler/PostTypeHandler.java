@@ -2,7 +2,7 @@ package sisosolsol.greenfire.common.handler;
 
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
-import sisosolsol.greenfire.post.model.type.PostType;
+import sisosolsol.greenfire.common.enums.post.PostType;
 
 import java.sql.*;
 
