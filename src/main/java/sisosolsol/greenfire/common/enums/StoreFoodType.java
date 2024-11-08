@@ -1,4 +1,4 @@
-package sisosolsol.greenfire.store.model.type;
+package sisosolsol.greenfire.common.enums;
 
 public enum StoreFoodType {
     KOREAN_FOOD, //한식
