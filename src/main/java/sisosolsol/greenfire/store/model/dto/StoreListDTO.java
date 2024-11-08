@@ -18,6 +18,7 @@ public class StoreListDTO {
     private StoreStatus storeStatus;
     private StoreFoodType storeFoodType;
     private String storeCategoryName;
-    private String storeImage;
+    private String path;
+    private String fileName;
 
 }
