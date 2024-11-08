@@ -1,4 +1,4 @@
-package sisosolsol.greenfire.store.model.type;
+package sisosolsol.greenfire.common.enums;
 
 public enum StoreStatus {
     APPROVE, //승인
