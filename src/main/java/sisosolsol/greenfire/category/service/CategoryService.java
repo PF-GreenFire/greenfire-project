@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sisosolsol.greenfire.category.model.dao.CategoryMapper;
 import sisosolsol.greenfire.category.model.dto.CategoryCreateDTO;
 import sisosolsol.greenfire.category.model.dto.CategoryUpdateDTO;
-import sisosolsol.greenfire.category.model.type.CategoryType;
+import sisosolsol.greenfire.common.enums.CategoryType;
 
 @Service
 @Transactional
