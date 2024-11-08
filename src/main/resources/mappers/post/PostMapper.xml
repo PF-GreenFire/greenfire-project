@@ -25,4 +25,11 @@
             p.created_at DESC
     </select>
 
+    <insert id="registChallengePost" useGeneratedKeys="true" keyProperty="postCode">
+        INSERT INTO
+        tbl_post (post_content, post_type, challenge_code, thumbnail, user_code)
+        VALUES
+        (#{postContent}, #{postType, typeHandler=sisosolsol.greenfire.common.handler.PostTypeHandler}, #{challengeCode},
+        #{thumbnail}, #{userCode})
+    </insert>
 </mapper>
