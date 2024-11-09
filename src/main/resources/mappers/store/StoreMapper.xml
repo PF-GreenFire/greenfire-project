@@ -12,7 +12,7 @@
             <result property="path" column="path"/>
             <result property="fileName" column="file_name"/>
         </resultMap>
-        <resultMap id="applyStoreListResultMap" type="sisosolsol.greenfire.store.model.dto.ApplyStoreListDTO">
+        <resultMap id="applyStoreListResultMap" type="sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO">
             <id property="storeCode" column="store_code"/>
             <result property="createdAt" column="created_at"/>
             <result property="storeName" column="store_name"/>

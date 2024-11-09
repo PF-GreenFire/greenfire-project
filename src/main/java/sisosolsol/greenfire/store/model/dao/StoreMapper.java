@@ -3,7 +3,7 @@ package sisosolsol.greenfire.store.model.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sisosolsol.greenfire.common.page.SelectCriteria;
-import sisosolsol.greenfire.store.model.dto.ApplyStoreListDTO;
+import sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
 import java.util.List;
@@ -17,5 +17,5 @@ public interface StoreMapper {
     int countStoresByStoreStatus(String storeStatus);
 
     // 관리자 초록불 장소 상태에 따른 목록 페이징 조회 [신청 대기, 신청 승인]
-    List<ApplyStoreListDTO> findStoreListByStoreStatus(@Param("criteria") SelectCriteria criteria, @Param("storeStatus") String storeStatus);
+    List<StoreListByStoreStatusDTO> findStoreListByStoreStatus(@Param("criteria") SelectCriteria criteria, @Param("storeStatus") String storeStatus);
 }

@@ -6,7 +6,7 @@ import sisosolsol.greenfire.common.enums.store.StoreStatus;
 import java.time.OffsetDateTime;
 
 @Getter
-public class ApplyStoreListDTO {
+public class StoreListByStoreStatusDTO {
 
     //신청 장소 목록 조회용 DTO
     private Integer storeCode;

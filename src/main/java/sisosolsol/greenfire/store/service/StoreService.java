@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import sisosolsol.greenfire.common.page.Pagination;
 import sisosolsol.greenfire.common.page.SelectCriteria;
 import sisosolsol.greenfire.store.model.dao.StoreMapper;
-import sisosolsol.greenfire.store.model.dto.ApplyStoreListDTO;
+import sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class StoreService {
         int buttonAmount = 5; // 페이지 하단에 보일 버튼 수
         SelectCriteria selectCriteria = Pagination.getSelectCriteria(page, totalCount, limit, buttonAmount);
 
-        List<ApplyStoreListDTO> storeList = storeMapper.findStoreListByStoreStatus(selectCriteria, storeStatus);
+        List<StoreListByStoreStatusDTO> storeList = storeMapper.findStoreListByStoreStatus(selectCriteria, storeStatus);
 
         Map<String, Object> storeListResponse = new HashMap<>();
         storeListResponse.put("paging", selectCriteria);
