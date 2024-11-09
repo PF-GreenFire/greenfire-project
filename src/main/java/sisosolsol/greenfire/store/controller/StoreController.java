@@ -24,7 +24,7 @@ public class StoreController {
     }
 
     // 관리자 초록불 장소 상태에 따른 목록 페이징 조회 [신청 대기, 신청 승인]
-    // TODO: 추후 관리자만 목록 조회 할수 있겠금 권한 체크 예정 / 현재 데이터 3개 조회 되므로 limit 2로 임시 지정 -> 추후 수정 예정/ WAITING, APPROVE 외의 값에 대한 예외 처리 예정
+    // TODO: 추후 관리자만 목록 조회 할수 있겠금 권한 체크 예정 / 현재 데이터 3개 조회 되므로 limit 2로 임시 지정 -> 추후 수정 예정/ 추후 신청 거절건에 관해 조회 할 수도 있어서 결정 되면, WAITING, APPROVE 외의 값에 대한 예외 처리 예정
     @GetMapping("/{storeStatus}/list")
     public ResponseEntity<Map<String, Object>> getStoreListByStoreStatus(
             @PathVariable String storeStatus,
