@@ -5,8 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sisosolsol.greenfire.category.model.dao.CategoryMapper;
 import sisosolsol.greenfire.category.model.dto.CategoryCreateDTO;
+import sisosolsol.greenfire.category.model.dto.CategoryDTO;
 import sisosolsol.greenfire.category.model.dto.CategoryUpdateDTO;
 import sisosolsol.greenfire.common.enums.category.CategoryType;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -14,6 +17,18 @@ import sisosolsol.greenfire.common.enums.category.CategoryType;
 public class CategoryService {
 
     private final CategoryMapper categoryMapper;
+
+    @Transactional(readOnly = true)
+    public List<CategoryDTO> getCategoryList(CategoryType categoryType) {
+        List<CategoryDTO> categoryList = null;
+        switch (categoryType) {
+            case CHALLENGE :
+                categoryList = categoryMapper.getChallengeCategoryList(); break;
+            case STORE:
+                categoryList = categoryMapper.getStoreCategoryList(); break;
+        }
+        return categoryList;
+    }
 
     public int registCategory(CategoryCreateDTO category) {
         switch (category.getCategoryType()) {
@@ -50,4 +65,5 @@ public class CategoryService {
                 break;
         }
     }
+
 }

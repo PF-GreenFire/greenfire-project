@@ -5,6 +5,30 @@
 
 <mapper namespace="sisosolsol.greenfire.category.model.dao.CategoryMapper">
 
+    <select id="getChallengeCategoryList" resultType="sisosolsol.greenfire.category.model.dto.CategoryDTO">
+        SELECT
+            challenge_category_code as categoryCode,
+            challenge_category_name as categoryName
+        FROM
+            tbl_challenge_category
+        WHERE
+            status = 'ACTIVE'
+        ORDER BY
+            challenge_category_code
+    </select>
+
+    <select id="getStoreCategoryList" resultType="sisosolsol.greenfire.category.model.dto.CategoryDTO">
+        SELECT
+            store_category_code as categoryCode,
+            store_category_name as categoryName
+        FROM
+            tbl_store_category
+        WHERE
+            status = 'ACTIVE'
+        ORDER BY
+            store_category_code
+    </select>
+
     <insert id="registChallengeCategory" useGeneratedKeys="true" keyProperty="categoryCode">
         INSERT INTO
             tbl_challenge_category (challenge_category_name)
