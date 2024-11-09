@@ -2,11 +2,7 @@ package sisosolsol.greenfire.store.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import sisosolsol.greenfire.store.model.dto.ApplyStoreListDTO;
+import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 import sisosolsol.greenfire.store.service.StoreService;
 
@@ -27,14 +23,17 @@ public class StoreController {
         return ResponseEntity.ok(storeList);
     }
 
-    // 초록불 장소 신청 목록 조회 TODO: 추후 관리자만 목록 조회 할수 있겠금 권한 체크 예정 / 현재 데이터 3개 조회 되므로 limit 2로 임시 지정 -> 추후 수정 예정
-    @GetMapping("/apply/list")
-    public ResponseEntity<Map<String, Object>> getApplyStoreList(
+    // 관리자 초록불 장소 상태에 따른 목록 페이징 조회 [신청 대기, 신청 승인]
+    // TODO: 추후 관리자만 목록 조회 할수 있겠금 권한 체크 예정 / 현재 데이터 3개 조회 되므로 limit 2로 임시 지정 -> 추후 수정 예정/ WAITING, APPROVE 외의 값에 대한 예외 처리 예정
+    @GetMapping("/{storeStatus}/list")
+    public ResponseEntity<Map<String, Object>> getStoreListByStoreStatus(
+            @PathVariable String storeStatus,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "2") int limit
     ) {
-        Map<String, Object> applyStoreList = storeService.getApplyStoreList(page, limit);
-        return ResponseEntity.ok(applyStoreList);
+        storeStatus = storeStatus.toUpperCase(); // 소문자로 들어왔을 경우, 대문자 변환
+        Map<String, Object> storeList = storeService.getStoreListByStoreStatus(storeStatus, page, limit);
+        return ResponseEntity.ok(storeList);
     }
 
 }

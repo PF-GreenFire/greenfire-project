@@ -41,15 +41,15 @@
                 s.store_status = 'APPROVE'
         </select>
 
-        <!-- 초록불 장소 신청 목록 토탈 갯수 조회 -->
-        <select id="countWaitingStores" resultType="int">
+        <!-- 관리자 초록불 장소 상태에 따른 목록 페이징 조회를 위한 토탈 갯수 조회 -->
+        <select id="countStoresByStoreStatus" resultType="int">
             SELECT COUNT(*)
             FROM tbl_store
-            WHERE store_status = 'WAITING'
+            WHERE store_status = #{storeStatus}
         </select>
 
-        <!-- 초록불 장소 신청 목록 페이징 조회 -->
-        <select id="findApplyStoreList" resultMap="applyStoreListResultMap" parameterType="sisosolsol.greenfire.common.page.SelectCriteria">
+        <!-- 관리자 초록불 장소 상태에 따른 목록 페이징 조회 [신청 대기, 신청 승인] -->
+        <select id="findStoreListByStoreStatus" resultMap="applyStoreListResultMap" parameterType="sisosolsol.greenfire.common.page.SelectCriteria">
             SELECT
                 s.store_code,
                 s.created_at,
@@ -63,9 +63,9 @@
             LEFT JOIN
                 tbl_area a ON l.area_code = a.area_code
             WHERE
-                s.store_status = 'WAITING'
+                s.store_status = #{storeStatus}
             ORDER BY
                 s.created_at DESC
-            LIMIT #{limit} OFFSET #{offset}
+            LIMIT #{criteria.limit} OFFSET #{criteria.offset}
         </select>
 </mapper>
