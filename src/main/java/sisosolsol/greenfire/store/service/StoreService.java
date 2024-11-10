@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import sisosolsol.greenfire.common.page.Pagination;
 import sisosolsol.greenfire.common.page.SelectCriteria;
 import sisosolsol.greenfire.store.model.dao.StoreMapper;
-import sisosolsol.greenfire.store.model.dto.ApplyStoreListDTO;
+import sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
 import java.util.HashMap;
@@ -23,20 +23,20 @@ public class StoreService {
         return storeMapper.findStoreList();
     }
 
-    // 초록불 장소 신청 목록 조회
-    public Map<String, Object> getApplyStoreList(int page, int limit) {
-        int totalCount = storeMapper.countWaitingStores(); // `WAITING` 상태 총 개수를 조회하는 메서드
+    // 관리자 초록불 장소 상태에 따른 목록 페이징 조회 [신청 대기, 신청 승인]
+    public Map<String, Object> getStoreListByStoreStatus(String storeStatus, int page, int limit) {
+        int totalCount = storeMapper.countStoresByStoreStatus(storeStatus); // `WAITING`과 'APPROVE' 등 스토어 상태에 따른 총 개수를 조회
 
         int buttonAmount = 5; // 페이지 하단에 보일 버튼 수
         SelectCriteria selectCriteria = Pagination.getSelectCriteria(page, totalCount, limit, buttonAmount);
 
-        List<ApplyStoreListDTO> applyStoreList = storeMapper.findApplyStoreList(selectCriteria);
+        List<StoreListByStoreStatusDTO> storeList = storeMapper.findStoreListByStoreStatus(selectCriteria, storeStatus);
 
-        Map<String, Object> applyStoreListResponse = new HashMap<>();
-        applyStoreListResponse.put("paging", selectCriteria);
-        applyStoreListResponse.put("applyStoreList", applyStoreList);
+        Map<String, Object> storeListResponse = new HashMap<>();
+        storeListResponse.put("paging", selectCriteria);
+        storeListResponse.put("storeList", storeList);
 
-        return applyStoreListResponse;
+        return storeListResponse;
     }
 
 }
