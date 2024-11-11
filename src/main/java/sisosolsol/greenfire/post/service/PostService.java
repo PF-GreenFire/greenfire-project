@@ -12,6 +12,7 @@ import sisosolsol.greenfire.common.enums.image.ImageType;
 import sisosolsol.greenfire.image.service.ImageService;
 import sisosolsol.greenfire.post.model.dao.PostMapper;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
+import sisosolsol.greenfire.post.model.dto.PostDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
 
 import java.util.List;
@@ -27,6 +28,11 @@ public class PostService {
     @Transactional(readOnly = true)
     public List<SimplePostDTO> getChallengePostList(Integer challengeCode) {
         return postMapper.getChallengePostList(challengeCode);
+    }
+
+    @Transactional(readOnly = true)
+    public PostDTO getPost(Integer postCode) {
+        return postMapper.getPost(postCode);
     }
 
     public int registChallengePost(PostCreateDTO post) {
@@ -46,4 +52,5 @@ public class PostService {
         }
         return post.getPostCode();
     }
+
 }

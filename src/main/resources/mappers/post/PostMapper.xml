@@ -5,6 +5,24 @@
 
 <mapper namespace="sisosolsol.greenfire.post.model.dao.PostMapper">
 
+    <resultMap id="postResultMap" type="sisosolsol.greenfire.post.model.dto.PostDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="userCode" column="user_code" typeHandler="sisosolsol.greenfire.common.handler.UUIDTypeHandler"/>
+        <result property="writer" column="writer"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="postContent" column="post_content"/>
+        <result property="postType" column="post_type"/>
+        <result property="storeCode" column="store_code"/>
+        <result property="storeName" column="store_name"/>
+        <result property="challengeCode" column="challenge_code"/>
+        <result property="challengeTitle" column="challenge_title"/>
+        <result property="like" column="like"/>
+        <collection property="images" ofType="sisosolsol.greenfire.image.model.dto.ImageDTO">
+            <result property="path" column="path"/>
+            <result property="fileName" column="file_name"/>
+        </collection>
+    </resultMap>
+
     <select id="getChallengePostList" resultType="sisosolsol.greenfire.post.model.dto.SimplePostDTO">
         SELECT
             p.post_code,
@@ -23,6 +41,35 @@
             p.challenge_code = #{ challengeCode }
         ORDER BY
             p.created_at DESC
+    </select>
+
+    <select id="getPost" resultType="sisosolsol.greenfire.post.model.dto.PostDTO">
+        SELECT
+            p.post_code,
+            p.user_code,
+            u.name as writer,
+            p.created_at,
+            p.post_content,
+            p.post_type,
+            p.store_code,
+            s.store_name,
+            p.challenge_code,
+            c.challenge_title,
+            p.like,
+            i.path,
+            i.file_name
+        FROM
+            tbl_post p
+            JOIN tbl_user u on (p.user_code = u.user_code)
+            JOIN tbl_store s on (p.store_code = s.store_code)
+            JOIN tbl_challenge c on (p.challenge_code = c.challenge_code)
+            LEFT JOIN tbl_image i on (p.post_code = i.post_code)
+        WHERE
+            p.post_status = 'ACTIVE'
+        AND
+            p.post_code = #{ postCode }
+        ORDER BY
+            i.created_at
     </select>
 
     <insert id="registChallengePost" useGeneratedKeys="true" keyProperty="postCode">
