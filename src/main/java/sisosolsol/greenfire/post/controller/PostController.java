@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
+import sisosolsol.greenfire.post.model.dto.PostDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
 import sisosolsol.greenfire.post.service.PostService;
 
@@ -16,6 +17,12 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+
+    @GetMapping("/{postCode}")
+    public ResponseEntity<PostDTO> getPost(@PathVariable Integer postCode) {
+        PostDTO post = postService.getPost(postCode);
+        return ResponseEntity.ok(post);
+    }
 
     @GetMapping("/challenge/{challengeCode}")
     public ResponseEntity<List<SimplePostDTO>> getChallengePostList(@PathVariable Integer challengeCode) {
