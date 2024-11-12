@@ -55,5 +55,9 @@ public class PostService {
     }
 
     public void updatePost(Integer postCode, PostUpdateDTO post) {
+        //TODO: tbl_post 수정사항 업데이트
+        //TODO: 동적 쿼리, postType = store 일 때 store_code = #{storeCode}, post_code = null 같은 식으로 작성
+
+        //TODO: tbl_image 처리 (방식에 대해서는 좀 더 고민이 필요함)
     }
 }
