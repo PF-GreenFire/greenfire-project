@@ -13,6 +13,7 @@ import sisosolsol.greenfire.image.service.ImageService;
 import sisosolsol.greenfire.post.model.dao.PostMapper;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
 import sisosolsol.greenfire.post.model.dto.PostDTO;
+import sisosolsol.greenfire.post.model.dto.PostUpdateDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
 
 import java.util.List;
@@ -53,4 +54,6 @@ public class PostService {
         return post.getPostCode();
     }
 
+    public void updatePost(Integer postCode, PostUpdateDTO post) {
+    }
 }

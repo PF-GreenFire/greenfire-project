@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
 import sisosolsol.greenfire.post.model.dto.PostDTO;
+import sisosolsol.greenfire.post.model.dto.PostUpdateDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
 import sisosolsol.greenfire.post.service.PostService;
 
@@ -33,6 +34,12 @@ public class PostController {
     @PostMapping("/challenge")
     public ResponseEntity<Void> createChallengePost(@RequestBody PostCreateDTO post) {
         int postCode = postService.registChallengePost(post);
-        return ResponseEntity.created(URI.create("post/challenge/")).build();
+        return ResponseEntity.created(URI.create("post/" + postCode)).build();
+    }
+
+    @PutMapping("/{postCode}")
+    public ResponseEntity<PostUpdateDTO> updatePost(@PathVariable Integer postCode, @RequestBody PostUpdateDTO post) {
+        postService.updatePost(postCode, post);
+        return ResponseEntity.ok(post);
     }
 }
