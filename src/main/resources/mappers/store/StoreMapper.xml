@@ -68,4 +68,37 @@
                 s.created_at DESC
             LIMIT #{criteria.limit} OFFSET #{criteria.offset}
         </select>
+
+        <insert id="registApplyStore"  useGeneratedKeys="true" keyProperty="storeCreateDTO.storeCode">
+            INSERT INTO
+                tbl_store (
+                    store_name,
+                    store_status,
+                    store_phone,
+                    store_link,
+                    store_business_hours,
+                    location_code,
+                    store_category_code,
+                    store_food_type,
+                    detail_address,
+                    description,
+                    store_breaktime_hours,
+                    user_code
+                )
+            VALUES
+            (
+                #{storeCreateDTO.storeName},
+                #{storeCreateDTO.storeStatus},
+                #{storeCreateDTO.storePhone},
+                #{storeCreateDTO.storeLink},
+                #{storeCreateDTO.storeBusinessHours},
+                #{locationCode},
+                #{storeCreateDTO.storeCategoryCode},
+                #{storeCreateDTO.storeFoodType},
+                #{storeCreateDTO.detailAddress},
+                #{storeCreateDTO.description},
+                #{storeCreateDTO.storeBreaktimeHours},
+                #{storeCreateDTO.userCode}::uuid
+            )
+        </insert>
 </mapper>

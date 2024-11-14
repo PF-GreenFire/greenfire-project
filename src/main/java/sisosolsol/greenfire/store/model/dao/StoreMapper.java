@@ -3,6 +3,7 @@ package sisosolsol.greenfire.store.model.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sisosolsol.greenfire.common.page.SelectCriteria;
+import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
@@ -18,4 +19,7 @@ public interface StoreMapper {
 
     // 관리자 초록불 장소 상태에 따른 목록 페이징 조회 [신청 대기, 신청 승인]
     List<StoreListByStoreStatusDTO> findStoreListByStoreStatus(@Param("criteria") SelectCriteria criteria, @Param("storeStatus") String storeStatus);
+
+    // 초록불 장소 신청 등록
+    void registApplyStore(@Param("storeCreateDTO") StoreCreateDTO storeCreateDTO, @Param("locationCode") int locationCode);
 }
