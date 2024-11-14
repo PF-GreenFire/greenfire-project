@@ -2,7 +2,6 @@ package sisosolsol.greenfire.location.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import sisosolsol.greenfire.location.model.dao.LocationMapper;
 import sisosolsol.greenfire.location.model.dto.LocationDTO;
