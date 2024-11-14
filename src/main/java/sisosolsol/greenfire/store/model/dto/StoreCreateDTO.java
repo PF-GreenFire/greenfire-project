@@ -13,6 +13,8 @@ import java.util.UUID;
 @Getter
 @ToString
 public class StoreCreateDTO {
+
+    // 장소 신청 등록용 DTO
     private Integer storeCode;
     private String storeName;
     private StoreStatus storeStatus;
