@@ -12,5 +12,10 @@
             (#{postCode}, #{image.path}, #{image.origin_name}, #{image.file_name})
     </insert>
 
+    <delete id="deleteAllInPost">
+        DELETE FROM tbl_image
+        WHERE post_code = #{postCode}
+    </delete>
+
 
 </mapper>
