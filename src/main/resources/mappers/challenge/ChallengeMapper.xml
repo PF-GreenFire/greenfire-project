@@ -4,36 +4,76 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sisosolsol.greenfire.challenge.model.dao.ChallengeMapper">
-
     <insert id="registChallenge" useGeneratedKeys="true" keyProperty="challengeCode">
         INSERT INTO
-            tbl_challenge (
-                challenge_name,
-                challenge_content,
-                recruitment_num,
-                start_date,
-                end_date,
-                host_member,
-                xp,
-                thumbnail_url,
-                challenge_category_code,
-                challenge_status,
-                created_at
-            )
+        tbl_challenge (
+        challenge_title,
+        challenge_content,
+        recruitment_num,
+        start_date,
+        end_date,
+        host_user,
+        xp,
+        thumbnail_url,
+        challenge_category_code,
+        challenge_status,
+        created_at
+        )
         VALUES
-            (
-                #{challengeName},
-                #{challengeContent},
-                #{recruitmentNum},
-                #{startDate},
-                #{endDate},
-                #{hostMember},
-                #{xp},
-                #{thumbnailUrl},
-                #{challengeCategoryCode},
-                #{challengeStatus},
-                #{createdAt}
-            )
+        (
+        #{challengeTitle},
+        #{challengeContent},
+        #{recruitmentNum},
+        #{startDate},
+        #{endDate},
+        #{hostUser},
+        #{xp},
+        #{thumbnailUrl},
+        #{challengeCategoryCode},
+        #{challengeStatus},
+        #{createdAt}
+        )
     </insert>
 
+    <select id="countChallenges" parameterType="sisosolsol.greenfire.challenge.model.dto.ChallengeSearchCondition" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_challenge
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                AND (challenge_title LIKE CONCAT('%', #{searchKeyword}, '%')
+                OR challenge_content LIKE CONCAT('%', #{searchKeyword}, '%'))
+            </if>
+            <if test="categoryCode != null">
+                AND challenge_category_code = #{categoryCode}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectChallenges" parameterType="sisosolsol.greenfire.challenge.model.dto.ChallengeSearchCondition" resultType="sisosolsol.greenfire.challenge.model.dto.ChallengeDTO">
+        SELECT
+        challenge_code,
+        created_at,
+        challenge_title,
+        challenge_content,
+        host_user,
+        recruitment_num,
+        start_date,
+        end_date,
+        xp,
+        thumbnail_url,
+        challenge_category_code,
+        challenge_status
+        FROM tbl_challenge
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                AND (challenge_title LIKE CONCAT('%', #{searchKeyword}, '%')
+                OR challenge_content LIKE CONCAT('%', #{searchKeyword}, '%'))
+            </if>
+            <if test="categoryCode != null">
+                AND challenge_category_code = #{categoryCode}
+            </if>
+        </where>
+        ORDER BY created_at DESC
+        LIMIT #{size} OFFSET #{offset}
+    </select>
 </mapper>
