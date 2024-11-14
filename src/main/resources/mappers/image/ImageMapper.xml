@@ -12,5 +12,22 @@
             (#{postCode}, #{image.path}, #{image.origin_name}, #{image.file_name})
     </insert>
 
+    <insert id="saveStoreImage" useGeneratedKeys="true" keyProperty="image.imageCode">
+        INSERT INTO
+            tbl_image (store_code, path, origin_name, file_name, "order")
+        VALUES
+            (
+                #{storeCode}, #{image.path}, #{image.originName}, #{image.fileName},
+                (
+                    SELECT
+                        COALESCE(MAX("order"), 0) + 1
+                    FROM
+                        tbl_image
+                    WHERE
+                        store_code = #{storeCode}
+                )
+            )
+    </insert>
+
 
 </mapper>

@@ -69,9 +69,13 @@ public class StoreService {
         storeMapper.registApplyStore(storeCreateDTO, locationCode); // 장소 신청 등록
         System.out.println("스토어 등록시 전달된 locationCode: " + locationCode);
 
-//        for (ImageUploadDTO image : storeCreateDTO.getImages()) {
-//            imageService.saveImage(ImageType.POST, storeCreateDTO.getStoreCode(), image);
-//        }
+
+        if (storeCreateDTO.getImages() != null) { // 이미지 파일 있을때 만 이미지 등록 TODO: fileName incoding 적용 예정 [현재 fileName 제외 등록]
+            for (ImageUploadDTO image : storeCreateDTO.getImages()) {
+                System.out.println("등록된 storeCode : " + storeCreateDTO.getStoreCode());
+                imageService.saveImage(ImageType.STORE, storeCreateDTO.getStoreCode(), image);
+            }
+        }
 
         return storeCreateDTO.getStoreCode();
     }
