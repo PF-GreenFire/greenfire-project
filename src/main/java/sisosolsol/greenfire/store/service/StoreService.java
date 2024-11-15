@@ -13,12 +13,13 @@ import sisosolsol.greenfire.location.model.dto.LocationDTO;
 import sisosolsol.greenfire.location.service.LocationService;
 import sisosolsol.greenfire.store.model.dao.StoreMapper;
 import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
-import sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO;
+import sisosolsol.greenfire.store.model.dto.StoreApplyListDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +42,7 @@ public class StoreService {
         int buttonAmount = 5; // 페이지 하단에 보일 버튼 수
         SelectCriteria selectCriteria = Pagination.getSelectCriteria(page, totalCount, limit, buttonAmount);
 
-        List<StoreListByStoreStatusDTO> storeList = storeMapper.findStoreListByStoreStatus(selectCriteria, storeStatus);
+        List<StoreApplyListDTO> storeList = storeMapper.findStoreListByStoreStatus(selectCriteria, storeStatus);
 
         Map<String, Object> storeListResponse = new HashMap<>();
         storeListResponse.put("paging", selectCriteria);
@@ -79,4 +80,19 @@ public class StoreService {
         return storeCreateDTO.getStoreCode();
     }
 
+    // 초록불 회원 본인이 신청한 장소 목록 페이징 조회
+    public Map<String, Object> getStoreListByUserCode(int page, int limit, UUID userCode) {
+        int totalCount = storeMapper.countApplyStoresByUserCode(userCode); // 로그인 한 UserCode 에 따른 apply Store 총 개수 조회
+
+        int buttonAmount = 5; // 페이지 하단에 보일 버튼 수
+        SelectCriteria selectCriteria = Pagination.getSelectCriteria(page, totalCount, limit, buttonAmount);
+
+        List<StoreApplyListDTO> storeList = storeMapper.findApplyStoreListByUserCode(selectCriteria, userCode);
+
+        Map<String, Object> storeListResponse = new HashMap<>();
+        storeListResponse.put("paging", selectCriteria);
+        storeListResponse.put("storeList", storeList);
+
+        return storeListResponse;
+    }
 }

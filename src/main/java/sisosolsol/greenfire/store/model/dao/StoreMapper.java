@@ -4,10 +4,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sisosolsol.greenfire.common.page.SelectCriteria;
 import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
-import sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO;
+import sisosolsol.greenfire.store.model.dto.StoreApplyListDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mapper
 public interface StoreMapper {
@@ -18,8 +19,14 @@ public interface StoreMapper {
     int countStoresByStoreStatus(String storeStatus);
 
     // 관리자 초록불 장소 상태에 따른 목록 페이징 조회 [신청 대기, 신청 승인]
-    List<StoreListByStoreStatusDTO> findStoreListByStoreStatus(@Param("criteria") SelectCriteria criteria, @Param("storeStatus") String storeStatus);
+    List<StoreApplyListDTO> findStoreListByStoreStatus(@Param("criteria") SelectCriteria criteria, @Param("storeStatus") String storeStatus);
 
     // 초록불 장소 신청 등록
     void registApplyStore(@Param("storeCreateDTO") StoreCreateDTO storeCreateDTO, @Param("locationCode") int locationCode);
+
+    // 초록불 회원 본인이 신청한 장소 목록 페이징 조회를 위한 토탈 갯수 조회
+    int countApplyStoresByUserCode(UUID userCode);
+
+    // 초록불 회원 본인이 신청한 장소 목록 페이징 조회
+    List<StoreApplyListDTO> findApplyStoreListByUserCode(@Param("criteria") SelectCriteria selectCriteria, @Param("userCode")UUID userCode);
 }
