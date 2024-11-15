@@ -7,11 +7,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import sisosolsol.greenfire.common.exception.model.ExceptionResponse;
+import sisosolsol.greenfire.common.exception.dto.ExceptionResponse;
 
 import java.io.IOException;
 
-import static sisosolsol.greenfire.common.exception.code.ExceptionCode.ACCESS_DENIED;
+import static sisosolsol.greenfire.common.exception.type.ExceptionCode.ACCESS_DENIED;
 
 public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
