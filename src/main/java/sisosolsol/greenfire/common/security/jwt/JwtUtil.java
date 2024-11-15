@@ -12,6 +12,7 @@ import sisosolsol.greenfire.common.security.model.CustomUserDetails;
 import sisosolsol.greenfire.common.security.model.SupabaseUserDTO;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 @Slf4j
@@ -38,7 +39,7 @@ public class JwtUtil {
         String customRole = extractCustomRole(claims);
 
         SupabaseUserDTO userDTO = SupabaseUserDTO.builder()
-                .id(claims.getSubject())
+                .id(UUID.fromString(claims.getSubject()))
                 .email(claims.get("email", String.class))
                 .role(customRole)
                 .build();
