@@ -6,6 +6,7 @@ import lombok.ToString;
 import sisosolsol.greenfire.common.enums.challenge.ChallengeStatus;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ public class ChallengeDTO {
     LocalDateTime createdAt;
     String challengeTitle;
     String challengeContent;
-    Integer hostUser;
+    UUID hostUser;
     Integer recruitmentNum;
     LocalDateTime startDate;
     LocalDateTime endDate;
