@@ -7,24 +7,23 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 @Getter
 public class CustomUserDetails implements UserDetails {
-    private final String id;
+    private final UUID id;
     private final String email;
-    private final Collection<? extends GrantedAuthority> authorities;
+    private final SimpleGrantedAuthority authority;
 
     public CustomUserDetails(SupabaseUserDTO supabaseUserDTO) {
         this.id = supabaseUserDTO.getId();
         this.email = supabaseUserDTO.getEmail();
-        this.authorities = Collections.singletonList(
-                new SimpleGrantedAuthority(supabaseUserDTO.getRole().getAuthority())
-        );
+        this.authority = new SimpleGrantedAuthority(supabaseUserDTO.getRole().getAuthority());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return Collections.singletonList(authority);
     }
 
     @Override
