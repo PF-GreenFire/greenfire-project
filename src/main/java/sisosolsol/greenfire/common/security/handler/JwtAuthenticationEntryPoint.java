@@ -7,11 +7,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import sisosolsol.greenfire.common.exception.model.ExceptionResponse;
+import sisosolsol.greenfire.common.exception.dto.ExceptionResponse;
 
 import java.io.IOException;
 
-import static sisosolsol.greenfire.common.exception.code.ExceptionCode.UNAUTHORIZED;
+import static sisosolsol.greenfire.common.exception.type.ExceptionCode.UNAUTHORIZED;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
