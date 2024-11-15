@@ -1,8 +1,9 @@
-package sisosolsol.greenfire.common.exception.model;
+package sisosolsol.greenfire.common.exception.dto;
+
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import sisosolsol.greenfire.common.exception.code.ExceptionCode;
+import sisosolsol.greenfire.common.exception.type.ExceptionCode;
 
 @Getter
 @RequiredArgsConstructor
