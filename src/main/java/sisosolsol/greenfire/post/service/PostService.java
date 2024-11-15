@@ -13,6 +13,7 @@ import sisosolsol.greenfire.image.service.ImageService;
 import sisosolsol.greenfire.post.model.dao.PostMapper;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
 import sisosolsol.greenfire.post.model.dto.PostDTO;
+import sisosolsol.greenfire.post.model.dto.PostUpdateDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
 
 import java.util.List;
@@ -53,4 +54,13 @@ public class PostService {
         return post.getPostCode();
     }
 
+    public void updatePost(Integer postCode, PostUpdateDTO post) {
+        postMapper.updatePost(postCode, post);
+
+        //TODO: 추후 리팩토링
+        imageService.deleteAllInPost(postCode);
+        for (ImageUploadDTO image : post.getImages()) {
+            imageService.saveImage(ImageType.POST, post.getPostCode(), image);
+        }
+    }
 }
