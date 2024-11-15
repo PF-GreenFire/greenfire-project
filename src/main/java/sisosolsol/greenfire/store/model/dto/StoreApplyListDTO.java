@@ -8,7 +8,7 @@ import java.time.OffsetDateTime;
 @Getter
 public class StoreApplyListDTO {
 
-    // 관리자 신청 장소 목록 장소 상태별 조회용 DTO
+    // 신청 장소 목록 조회용 DTO
     private Integer storeCode;
     private OffsetDateTime createdAt;
     private String storeName;
