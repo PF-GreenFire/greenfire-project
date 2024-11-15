@@ -1,4 +1,4 @@
-package sisosolsol.greenfire.common.enums.challenge;
+package sisosolsol.greenfire.common;
 
 import lombok.Getter;
 

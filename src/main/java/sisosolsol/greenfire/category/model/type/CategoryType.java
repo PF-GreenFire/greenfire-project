@@ -1,4 +1,4 @@
-package sisosolsol.greenfire.common.enums.category;
+package sisosolsol.greenfire.category.model.type;
 
 public enum CategoryType {
     CHALLENGE,  // 챌린지

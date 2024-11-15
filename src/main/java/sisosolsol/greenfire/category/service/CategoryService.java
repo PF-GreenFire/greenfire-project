@@ -7,7 +7,7 @@ import sisosolsol.greenfire.category.model.dao.CategoryMapper;
 import sisosolsol.greenfire.category.model.dto.CategoryCreateDTO;
 import sisosolsol.greenfire.category.model.dto.CategoryDTO;
 import sisosolsol.greenfire.category.model.dto.CategoryUpdateDTO;
-import sisosolsol.greenfire.common.enums.category.CategoryType;
+import sisosolsol.greenfire.category.model.type.CategoryType;
 
 import java.util.List;
 

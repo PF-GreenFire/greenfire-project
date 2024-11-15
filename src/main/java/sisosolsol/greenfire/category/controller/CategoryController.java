@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.category.model.dto.CategoryCreateDTO;
 import sisosolsol.greenfire.category.model.dto.CategoryDTO;
 import sisosolsol.greenfire.category.model.dto.CategoryUpdateDTO;
-import sisosolsol.greenfire.common.enums.category.CategoryType;
+import sisosolsol.greenfire.category.model.type.CategoryType;
 import sisosolsol.greenfire.category.service.CategoryService;
 
 import java.net.URI;
