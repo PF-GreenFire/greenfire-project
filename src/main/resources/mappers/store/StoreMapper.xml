@@ -12,7 +12,7 @@
             <result property="path" column="path"/>
             <result property="fileName" column="file_name"/>
         </resultMap>
-        <resultMap id="applyStoreListResultMap" type="sisosolsol.greenfire.store.model.dto.StoreListByStoreStatusDTO">
+        <resultMap id="applyStoreListResultMap" type="sisosolsol.greenfire.store.model.dto.StoreApplyListDTO">
             <id property="storeCode" column="store_code"/>
             <result property="createdAt" column="created_at"/>
             <result property="storeName" column="store_name"/>
@@ -69,6 +69,7 @@
             LIMIT #{criteria.limit} OFFSET #{criteria.offset}
         </select>
 
+        <!-- 초록불 장소 신청 등록 -->
         <insert id="registApplyStore"  useGeneratedKeys="true" keyProperty="storeCreateDTO.storeCode">
             INSERT INTO
                 tbl_store (
@@ -101,4 +102,33 @@
                 #{storeCreateDTO.userCode}::uuid
             )
         </insert>
+
+    <!-- 초록불 회원 본인이 신청한 장소 목록 페이징 조회를 위한 토탈 갯수 조회 -->
+    <select id="countApplyStoresByUserCode" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_store
+        WHERE user_code = #{userCode}::uuid
+    </select>
+
+    <!-- 초록불 회원 본인이 신청한 장소 목록 페이징 조회 -->
+    <select id="findApplyStoreListByUserCode" resultMap="applyStoreListResultMap" parameterType="sisosolsol.greenfire.common.page.SelectCriteria">
+        SELECT
+            s.store_code,
+            s.created_at,
+            s.store_name,
+            s.store_status,
+            a.area_name
+        FROM
+            tbl_store s
+        LEFT JOIN
+            tbl_location l ON s.location_code = l.location_code
+        LEFT JOIN
+            tbl_area a ON l.area_code = a.area_code
+        WHERE
+            s.user_code = #{userCode}::uuid
+        ORDER BY
+            s.created_at DESC
+        LIMIT #{criteria.limit} OFFSET #{criteria.offset}
+    </select>
+
 </mapper>
