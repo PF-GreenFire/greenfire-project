@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import sisosolsol.greenfire.common.page.SelectCriteria;
 import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
 import sisosolsol.greenfire.store.model.dto.StoreApplyListDTO;
+import sisosolsol.greenfire.store.model.dto.StoreDetailDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface StoreMapper {
 
     // 초록불 회원 본인이 신청한 장소 목록 페이징 조회
     List<StoreApplyListDTO> findApplyStoreListByUserCode(@Param("criteria") SelectCriteria selectCriteria, @Param("userCode")UUID userCode);
+
+    // 장소 상세 정보 조회
+    StoreDetailDTO findStoreDetailByStoreCode(Integer storeCode);
 }

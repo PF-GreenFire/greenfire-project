@@ -14,6 +14,7 @@ import sisosolsol.greenfire.location.service.LocationService;
 import sisosolsol.greenfire.store.model.dao.StoreMapper;
 import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
 import sisosolsol.greenfire.store.model.dto.StoreApplyListDTO;
+import sisosolsol.greenfire.store.model.dto.StoreDetailDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 
 import java.util.HashMap;
@@ -94,5 +95,11 @@ public class StoreService {
         storeListResponse.put("storeList", storeList);
 
         return storeListResponse;
+    }
+
+    // 장소 상세 정보 조회
+    public StoreDetailDTO getStoreDetailByStoreCode(Integer storeCode) {
+        StoreDetailDTO storeDetail = storeMapper.findStoreDetailByStoreCode(storeCode);
+        return storeDetail;
     }
 }

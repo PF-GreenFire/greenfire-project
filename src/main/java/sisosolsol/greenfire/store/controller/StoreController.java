@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
+import sisosolsol.greenfire.store.model.dto.StoreDetailDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 import sisosolsol.greenfire.store.service.StoreService;
 
@@ -58,6 +59,13 @@ public class StoreController {
 
         Map<String, Object> storeList = storeService.getStoreListByUserCode(page, limit, userCode);
         return ResponseEntity.ok(storeList);
+    }
+
+    // 장소 상세 정보 조회
+    @GetMapping("/detail/{storeCode}")
+    public ResponseEntity<StoreDetailDTO> getStoreDetail (@PathVariable Integer storeCode) {
+        StoreDetailDTO storeDetail = storeService.getStoreDetailByStoreCode(storeCode);
+        return ResponseEntity.ok(storeDetail);
     }
 
 }
