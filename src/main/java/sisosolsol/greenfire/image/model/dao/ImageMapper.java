@@ -9,4 +9,6 @@ public interface ImageMapper {
     void savePostImage(@Param("postCode") Integer code, @Param("image") ImageUploadDTO image);
 
     void saveStoreImage(@Param("storeCode") Integer code, @Param("image") ImageUploadDTO image);
+
+    void deleteAllInPost(Integer postCode);
 }

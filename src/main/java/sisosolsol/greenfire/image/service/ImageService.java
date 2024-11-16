@@ -20,4 +20,8 @@ public class ImageService {
             case POST: imageMapper.savePostImage(code, image); break;
         }
     }
+
+    public void deleteAllInPost(Integer postCode) {
+        imageMapper.deleteAllInPost(postCode);
+    }
 }

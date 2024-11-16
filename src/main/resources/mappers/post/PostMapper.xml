@@ -79,4 +79,27 @@
         (#{postContent}, #{postType, typeHandler=sisosolsol.greenfire.common.handler.PostTypeHandler}, #{challengeCode},
         #{thumbnail}, #{userCode})
     </insert>
+
+    <update id="updatePost">
+        UPDATE
+            tbl_post
+        SET
+            post_content = #{post.postContent},
+            post_type = #{post.postType, typeHandler=sisosolsol.greenfire.common.handler.PostTypeHandler},
+            <if test='post.postType.name().equals("DEFAULT")'>
+                store_code = null,
+                challenge_code = null,
+            </if>
+            <if test='post.postType.name().equals("GREENFIRE")'>
+                store_code = #{post.storeCode},
+                challenge_code = null,
+            </if>
+            <if test='post.postType.name().equals("CHALLENGE")'>
+                store_code = null,
+                challenge_code = #{post.challengeCode},
+            </if>
+            thumbnail = #{post.thumbnail}
+        WHERE
+            post_code = #{postCode}
+    </update>
 </mapper>
