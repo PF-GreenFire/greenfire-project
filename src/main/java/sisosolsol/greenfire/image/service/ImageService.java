@@ -15,7 +15,7 @@ public class ImageService {
 
     public void saveImage(ImageType imageType, Integer code, ImageUploadDTO image) {
         switch(imageType) {
-            case STORE: // TODO: STORE 이미지 업로드
+            case STORE: imageMapper.saveStoreImage(code, image);
                 break;
             case POST: imageMapper.savePostImage(code, image); break;
         }

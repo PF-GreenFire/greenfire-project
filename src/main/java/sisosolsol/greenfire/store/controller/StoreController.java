@@ -3,9 +3,11 @@ package sisosolsol.greenfire.store.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
 import sisosolsol.greenfire.store.service.StoreService;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +36,13 @@ public class StoreController {
         storeStatus = storeStatus.toUpperCase(); // 소문자로 들어왔을 경우, 대문자 변환
         Map<String, Object> storeList = storeService.getStoreListByStoreStatus(storeStatus, page, limit);
         return ResponseEntity.ok(storeList);
+    }
+
+    // 초록불 장소 신청 등록 TODO: service 단 예외 처리 , 예워니 handler 설정 적용 or enum 타입 관리용 유효성 검사 적용, 아.. 썸네일... 필요할 듯...ㅠㅠ 힝, 이미지 등록 적용 완료 했으나 인코딩 적용 예정
+    @PostMapping("/apply")
+    public ResponseEntity<String> createApplyStore(@RequestBody StoreCreateDTO storeCreateDTO){
+        int storeCode = storeService.registApplyStore(storeCreateDTO);
+        return ResponseEntity.created(URI.create("/api/v1/store/detail/" + storeCode)).build();
     }
 
 }
