@@ -102,4 +102,13 @@
         WHERE
             post_code = #{postCode}
     </update>
+
+    <update id="deletePost">
+        UPDATE
+            tbl_post
+        SET
+            post_status = 'DELETED'
+        WHERE
+            post_code = #{postCode}
+    </update>
 </mapper>

@@ -63,4 +63,8 @@ public class PostService {
             imageService.saveImage(ImageType.POST, post.getPostCode(), image);
         }
     }
+
+    public void deletePost(Integer postCode) {
+        postMapper.deletePost(postCode);
+    }
 }
