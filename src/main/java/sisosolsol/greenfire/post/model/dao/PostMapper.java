@@ -19,4 +19,6 @@ public interface PostMapper {
     void registChallengePost(PostCreateDTO post) throws DataAccessException;
 
     void updatePost(@Param("postCode") Integer postCode, @Param("post") PostUpdateDTO post);
+
+    void deletePost(Integer postCode);
 }
