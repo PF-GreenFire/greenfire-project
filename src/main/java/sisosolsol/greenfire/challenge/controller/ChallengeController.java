@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.challenge.model.dto.ChallengeCreateDTO;
+import sisosolsol.greenfire.challenge.model.dto.ChallengeDTO;
 import sisosolsol.greenfire.challenge.model.dto.ChallengeSearchDTO;
 import sisosolsol.greenfire.challenge.service.ChallengeService;
 
@@ -32,5 +33,21 @@ public class ChallengeController {
 
         ChallengeSearchDTO result = challengeService.getChallenges(page, size, searchKeyword, categoryCode);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/헐상세조회가이슈에없었어")
+    public ResponseEntity<List<ChallengeDTO>> getChallengeListByCategory(
+            @RequestBody ChallengeDTO challengeDTO
+    ) {
+        // 다음 이터레이션 때 구현할게요!!
+        return null;
+    }
+
+    @PostMapping("/{challengeCode}/apply")
+    public ResponseEntity<Void> applyChallenge(
+            @PathVariable Integer challengeCode,
+            @RequestBody ChallengeDTO challengeDTO) {
+
+        return ResponseEntity.created(URI.create("/api/v1/challenges/" + challengeCode)).build();
     }
 }
