@@ -16,8 +16,7 @@
         xp,
         thumbnail_url,
         challenge_category_code,
-        challenge_status,
-        created_at
+        challenge_status
         )
         VALUES
         (
@@ -26,14 +25,31 @@
         #{recruitmentNum},
         #{startDate},
         #{endDate},
-        #{hostUser},
+        CAST(#{hostUser} AS uuid),
         #{xp},
         #{thumbnailUrl},
         #{challengeCategoryCode},
-        #{challengeStatus},
-        #{createdAt}
+        #{challengeStatus}
         )
     </insert>
+
+    <select id="selectChallengeByCode" parameterType="int" resultType="sisosolsol.greenfire.challenge.model.dto.ChallengeDTO">
+        SELECT
+        challenge_code,
+        created_at,
+        challenge_title,
+        challenge_content,
+        host_user,
+        recruitment_num,
+        start_date,
+        end_date,
+        xp,
+        thumbnail_url,
+        challenge_category_code,
+        challenge_status
+        FROM tbl_challenge
+        WHERE challenge_code = #{challengeCode}
+    </select>
 
     <select id="countChallenges" parameterType="sisosolsol.greenfire.challenge.model.dto.ChallengeSearchCondition" resultType="int">
         SELECT COUNT(*)
@@ -87,15 +103,13 @@
         INSERT INTO tbl_challenge_part
         (
         challenge_code,
-        created_at,
         user_code,
         is_host
         )
         VALUES
         (
         #{challengeCode},
-        #{createdAt},
-        #{userCode},
+        CAST(#{userCode} AS uuid),
         #{isHost}
         )
     </insert>

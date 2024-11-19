@@ -45,9 +45,11 @@ public class ChallengeController {
 
     @PostMapping("/{challengeCode}/apply")
     public ResponseEntity<Void> applyChallenge(
-            @PathVariable Integer challengeCode,
-            @RequestBody ChallengeDTO challengeDTO) {
+            @PathVariable Integer challengeCode
+            // 유저 검사 들어갈 예정
+            ) {
 
+        challengeService.applyChallenge(challengeCode);
         return ResponseEntity.created(URI.create("/api/v1/challenges/" + challengeCode)).build();
     }
 }
