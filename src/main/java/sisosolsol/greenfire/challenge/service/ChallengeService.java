@@ -104,6 +104,7 @@ public class ChallengeService {
 
         // 3. 챌린지 상태 검증
         validateChallengeStatus(challenge, ChallengeAction.CANCEL);
+        // TODO : 이미 관련 게시글이나 기타 연관 관계가 생긴 경우 처리하는 로직도 추후 회의 후 구현
 
         // 4. 챌린지 취소 처리
         int result = challengeMapper.cancelChallengePart(challengeCode, UUID.fromString(userCode));
