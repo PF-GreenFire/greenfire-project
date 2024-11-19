@@ -76,4 +76,28 @@
         ORDER BY created_at DESC
         LIMIT #{size} OFFSET #{offset}
     </select>
+
+    <select id="countCurrentParticipants" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_challenge_part
+        WHERE challenge_code = #{challengeCode}
+    </select>
+
+    <insert id="insertChallengePart">
+        INSERT INTO tbl_challenge_part
+        (
+        challenge_code,
+        created_at,
+        user_code,
+        is_host
+        )
+        VALUES
+        (
+        #{challengeCode},
+        #{createdAt},
+        #{userCode},
+        #{isHost}
+        )
+    </insert>
+
 </mapper>
