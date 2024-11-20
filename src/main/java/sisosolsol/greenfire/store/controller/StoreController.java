@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
 import sisosolsol.greenfire.store.model.dto.StoreDetailDTO;
 import sisosolsol.greenfire.store.model.dto.StoreListDTO;
+import sisosolsol.greenfire.store.model.dto.StoreUpdateStatusDTO;
 import sisosolsol.greenfire.store.service.StoreService;
 
 import java.net.URI;
@@ -68,4 +69,13 @@ public class StoreController {
         return ResponseEntity.ok(storeDetail);
     }
 
+    // 관리자 장소 상태 변경 TODO: 관리자 권한 체크 예정, enum 타입 관리 유효성 검사 적용 예정
+    @PatchMapping("/change/{storeCode}")
+    public ResponseEntity<StoreUpdateStatusDTO> updateStoreStatus(
+            @PathVariable int storeCode,
+            @RequestBody StoreUpdateStatusDTO storeUpdateStatusDTO
+    ) {
+        storeService.updateStoreStatus(storeCode, storeUpdateStatusDTO);
+        return ResponseEntity.ok(storeUpdateStatusDTO);
+    }
 }

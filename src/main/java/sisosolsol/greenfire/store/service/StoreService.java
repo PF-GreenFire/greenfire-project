@@ -12,10 +12,7 @@ import sisosolsol.greenfire.location.model.dao.LocationMapper;
 import sisosolsol.greenfire.location.model.dto.LocationDTO;
 import sisosolsol.greenfire.location.service.LocationService;
 import sisosolsol.greenfire.store.model.dao.StoreMapper;
-import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
-import sisosolsol.greenfire.store.model.dto.StoreApplyListDTO;
-import sisosolsol.greenfire.store.model.dto.StoreDetailDTO;
-import sisosolsol.greenfire.store.model.dto.StoreListDTO;
+import sisosolsol.greenfire.store.model.dto.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -101,5 +98,10 @@ public class StoreService {
     public StoreDetailDTO getStoreDetailByStoreCode(Integer storeCode) {
         StoreDetailDTO storeDetail = storeMapper.findStoreDetailByStoreCode(storeCode);
         return storeDetail;
+    }
+
+    // 관리자 장소 상태 변경
+    public void updateStoreStatus(int storeCode, StoreUpdateStatusDTO storeUpdateStatusDTO) {
+        storeMapper.updateStoreStatus(storeCode, storeUpdateStatusDTO);
     }
 }
