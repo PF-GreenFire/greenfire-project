@@ -179,4 +179,24 @@
             s.store_code = #{storeCode}
     </select>
 
+    <!-- 관리자 장소 정보 수정 -->
+    <update id="updateStore">
+        UPDATE
+            tbl_store
+        SET
+            store_name = #{updateDTO.storeName},
+            store_status = #{updateDTO.storeStatus},
+            store_phone = #{updateDTO.storePhone},
+            store_link = #{updateDTO.storeLink},
+            store_business_hours = #{updateDTO.storeBusinessHours},
+            location_code = #{locationCode},
+            store_category_code = #{updateDTO.storeCategoryCode},
+            store_food_type = #{updateDTO.storeFoodType},
+            detail_address = #{updateDTO.detailAddress},
+            description = #{updateDTO.description},
+            store_breaktime_hours = #{updateDTO.storeBreaktimeHours},
+            user_code = #{updateDTO.userCode}::uuid
+        WHERE
+            store_code = #{storeCode}
+    </update>
 </mapper>

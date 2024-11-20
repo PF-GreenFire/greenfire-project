@@ -68,4 +68,11 @@ public class StoreController {
         return ResponseEntity.ok(storeDetail);
     }
 
+    // 관리자 장소 정보 수정
+    @PutMapping("/update/{storeCode}")
+    public ResponseEntity<StoreCreateDTO> updateStore (@PathVariable int storeCode, @RequestBody StoreCreateDTO updateDTO) {
+        storeService.updateStore(storeCode, updateDTO);
+        return ResponseEntity.ok(updateDTO);
+    }
+
 }

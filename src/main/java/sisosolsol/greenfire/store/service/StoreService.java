@@ -102,4 +102,27 @@ public class StoreService {
         StoreDetailDTO storeDetail = storeMapper.findStoreDetailByStoreCode(storeCode);
         return storeDetail;
     }
+
+    // 관리자 장소 정보 수정
+    public void updateStore(int storeCode, StoreCreateDTO updateDTO) {
+        LocationDTO location = updateDTO.getLocation();
+        int locationCode = locationMapper.findLocationByCoordinates(location.getLatitude(), location.getLongitude()); // 장소 신청 등록시 지역 정보 중복 방지용 조회
+
+        if(locationCode == 0) {
+            locationService.registLocation(location); // 중복 방지용 조회 값이 없을때 지역 정보 등록
+            locationCode = locationMapper.findLocationByCoordinates(location.getLatitude(), location.getLongitude()); //등록된 최신 지역 코드 조회
+        }
+
+        storeMapper.updateStore(storeCode, updateDTO, locationCode);
+
+        if (updateDTO.getImages() != null) { // 이미지 파일 있을때 만 이미지 등록 TODO: fileName incoding 적용 예정 [현재 fileName 제외 등록]
+
+            imageService.deleteAllInStore(storeCode); // 기존 장소 코드로 등록 되어 있는 이미지 전부 제거
+
+            for (ImageUploadDTO image : updateDTO.getImages()) {
+                imageService.saveImage(ImageType.STORE, storeCode, image); // 새 이미지 등록
+            }
+        }
+
+    }
 }
