@@ -52,4 +52,10 @@ public class ChallengeController {
         challengeService.applyChallenge(challengeCode);
         return ResponseEntity.created(URI.create("/api/v1/challenges/" + challengeCode)).build();
     }
+
+    @DeleteMapping("/{challengeCode}/apply/cancel")
+    public ResponseEntity<Void> cancelChallengePart(@PathVariable Integer challengeCode) {
+        challengeService.cancelChallengePart(challengeCode);
+        return ResponseEntity.created(URI.create("/api/v1/challenges/" + challengeCode)).build();
+    }
 }

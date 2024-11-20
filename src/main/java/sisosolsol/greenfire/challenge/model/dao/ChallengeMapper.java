@@ -7,6 +7,7 @@ import sisosolsol.greenfire.challenge.model.dto.ChallengePartDTO;
 import sisosolsol.greenfire.challenge.model.dto.ChallengeSearchCondition;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mapper
 public interface ChallengeMapper {
@@ -22,4 +23,8 @@ public interface ChallengeMapper {
     int countCurrentParticipants(Integer challengeCode);
 
     void insertChallengePart(ChallengePartDTO challengePart);
+
+    ChallengePartDTO selectChallengePart(Integer challengeCode, UUID userCode);
+
+    int cancelChallengePart(Integer challengeCode, UUID userCode);
 }
