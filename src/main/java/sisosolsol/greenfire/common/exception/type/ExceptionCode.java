@@ -35,7 +35,11 @@ public enum ExceptionCode {
     CHALLENGE_PAUSED(409, "일시중지된 챌린지입니다."),
     CHALLENGE_CANCEL_FAILED(409, "챌린지 취소에 실패했습니다."),
 
-    InvalidForeignKeyException(1100, "외래 키 제약을 위반한 요청입니다.");
+    InvalidForeignKeyException(1100, "외래 키 제약을 위반한 요청입니다."),
+
+    UserNotFoundException(1201, "사용자를 찾을 수 없습니다."),
+
+    DatabaseAccessException(1301, "데이터베이스 접근 중 오류가 발생했습니다.");
 
     private final int code;
     private final String message;
