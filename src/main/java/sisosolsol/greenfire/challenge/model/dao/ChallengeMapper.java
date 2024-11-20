@@ -3,6 +3,7 @@ package sisosolsol.greenfire.challenge.model.dao;
 import org.apache.ibatis.annotations.Mapper;
 import sisosolsol.greenfire.challenge.model.dto.ChallengeCreateDTO;
 import sisosolsol.greenfire.challenge.model.dto.ChallengeDTO;
+import sisosolsol.greenfire.challenge.model.dto.ChallengePartDTO;
 import sisosolsol.greenfire.challenge.model.dto.ChallengeSearchCondition;
 
 import java.util.List;
@@ -15,4 +16,10 @@ public interface ChallengeMapper {
     int countChallenges(ChallengeSearchCondition condition);
 
     List<ChallengeDTO> selectChallenges(ChallengeSearchCondition condition);
+
+    ChallengeDTO selectChallengeByCode(Integer challengeCode);
+
+    int countCurrentParticipants(Integer challengeCode);
+
+    void insertChallengePart(ChallengePartDTO challengePart);
 }
