@@ -9,6 +9,7 @@ import sisosolsol.greenfire.post.model.dto.PostUpdateDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mapper
 public interface PostMapper {
@@ -16,7 +17,7 @@ public interface PostMapper {
 
     PostDTO getPost(Integer postCode);
 
-    void registChallengePost(PostCreateDTO post) throws DataAccessException;
+    void registChallengePost(@Param("post") PostCreateDTO post, @Param("userId") UUID userId) throws DataAccessException;
 
     void updatePost(@Param("postCode") Integer postCode, @Param("post") PostUpdateDTO post);
 

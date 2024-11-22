@@ -5,8 +5,12 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sisosolsol.greenfire.common.enums.post.PostType;
 import sisosolsol.greenfire.common.exception.BadRequestException;
+import sisosolsol.greenfire.common.exception.CustomException;
 import sisosolsol.greenfire.common.exception.type.ExceptionCode;
+import sisosolsol.greenfire.common.security.model.CustomUserDetails;
+import sisosolsol.greenfire.common.security.model.UserRole;
 import sisosolsol.greenfire.image.model.dto.ImageUploadDTO;
 import sisosolsol.greenfire.common.enums.image.ImageType;
 import sisosolsol.greenfire.image.service.ImageService;
@@ -17,6 +21,7 @@ import sisosolsol.greenfire.post.model.dto.PostUpdateDTO;
 import sisosolsol.greenfire.post.model.dto.SimplePostDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -36,10 +41,12 @@ public class PostService {
         return postMapper.getPost(postCode);
     }
 
-    public int registChallengePost(PostCreateDTO post) {
-        // TODO: throw error if postType is not challenge
+    public int registChallengePost(PostCreateDTO post, UUID userId) {
+        if(post.getPostType() != PostType.CHALLENGE)
+            throw new BadRequestException(ExceptionCode.POST_TYPE_MISMATCH);
+
         try {
-            postMapper.registChallengePost(post);
+            postMapper.registChallengePost(post, userId);
         } catch (DataAccessException e) {
             if (e instanceof DataIntegrityViolationException) {
                 throw new BadRequestException(ExceptionCode.InvalidForeignKeyException);
@@ -54,7 +61,10 @@ public class PostService {
         return post.getPostCode();
     }
 
-    public void updatePost(Integer postCode, PostUpdateDTO post) {
+    public void updatePost(Integer postCode, CustomUserDetails user, PostUpdateDTO post) {
+        if(!hasPermission(postCode, user))
+            throw new CustomException(ExceptionCode.ACCESS_DENIED);
+
         postMapper.updatePost(postCode, post);
 
         //TODO: 추후 리팩토링
@@ -64,7 +74,15 @@ public class PostService {
         }
     }
 
-    public void deletePost(Integer postCode) {
+    public void deletePost(Integer postCode, CustomUserDetails user) {
+        if(!hasPermission(postCode, user))
+            throw new CustomException(ExceptionCode.ACCESS_DENIED);
+
         postMapper.deletePost(postCode);
+    }
+
+    private boolean hasPermission(Integer postCode, CustomUserDetails user) {
+        PostDTO targetPost = getPost(postCode);
+        return targetPost.getUserCode().equals(user.getId()) || user.getRoleName().equals(UserRole.ADMIN.name());
     }
 }

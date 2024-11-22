@@ -72,12 +72,12 @@
             i.created_at
     </select>
 
-    <insert id="registChallengePost" useGeneratedKeys="true" keyProperty="postCode">
+    <insert id="registChallengePost" useGeneratedKeys="true" keyProperty="post.postCode">
         INSERT INTO
         tbl_post (post_content, post_type, challenge_code, thumbnail, user_code)
         VALUES
-        (#{postContent}, #{postType, typeHandler=sisosolsol.greenfire.common.handler.PostTypeHandler}, #{challengeCode},
-        #{thumbnail}, #{userCode})
+        (#{post.postContent}, #{post.postType, typeHandler=sisosolsol.greenfire.common.handler.PostTypeHandler}, #{post.challengeCode},
+        #{post.thumbnail}, #{userId})
     </insert>
 
     <update id="updatePost">
