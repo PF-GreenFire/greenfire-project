@@ -2,6 +2,7 @@ package sisosolsol.greenfire.post.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sisosolsol.greenfire.post.model.dto.PostCreateDTO;
 import sisosolsol.greenfire.post.model.dto.PostDTO;
@@ -31,18 +32,21 @@ public class PostController {
         return ResponseEntity.ok(postList);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/challenge")
     public ResponseEntity<Void> createChallengePost(@RequestBody PostCreateDTO post) {
         int postCode = postService.registChallengePost(post);
         return ResponseEntity.created(URI.create("post/" + postCode)).build();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{postCode}")
     public ResponseEntity<PostUpdateDTO> updatePost(@PathVariable Integer postCode, @RequestBody PostUpdateDTO post) {
         postService.updatePost(postCode, post);
         return ResponseEntity.ok(post);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/{postCode}")
     public ResponseEntity<Void> deletePost(@PathVariable Integer postCode) {
         postService.deletePost(postCode);
