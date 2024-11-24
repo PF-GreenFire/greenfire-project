@@ -52,27 +52,12 @@ public class StoreService {
     // 초록불 장소 신청 등록
     @Transactional
     public int registApplyStore(StoreCreateDTO storeCreateDTO) {
-        LocationDTO location = storeCreateDTO.getLocation();
-        int locationCode = locationMapper.findLocationByCoordinates(location.getLatitude(), location.getLongitude()); // 장소 신청 등록시 지역 정보 중복 방지용 조회
-        System.out.println("찾은 locationCode: " + locationCode);
+        int locationCode = processLocation(storeCreateDTO.getLocation()); // 지역 코드 중복 조회 후 없다면 등록
 
-
-        if(locationCode == 0) {
-            locationService.registLocation(location); // 중복 방지용 조회 값이 없을때 지역 정보 등록
-            locationCode = locationMapper.findLocationByCoordinates(location.getLatitude(), location.getLongitude()); //등록된 최신 지역 코드 조회
-            System.out.println("새로 생성된 locationCode: " + locationCode);
-        }
-
-        System.out.println("스토어 등록 전 전달할 locationCode: " + locationCode);
         storeMapper.registApplyStore(storeCreateDTO, locationCode); // 장소 신청 등록
-        System.out.println("스토어 등록시 전달된 locationCode: " + locationCode);
-
 
         if (storeCreateDTO.getImages() != null) { // 이미지 파일 있을때 만 이미지 등록 TODO: fileName incoding 적용 예정 [현재 fileName 제외 등록]
-            for (ImageUploadDTO image : storeCreateDTO.getImages()) {
-                System.out.println("등록된 storeCode : " + storeCreateDTO.getStoreCode());
-                imageService.saveImage(ImageType.STORE, storeCreateDTO.getStoreCode(), image);
-            }
+            processImages(storeCreateDTO.getStoreCode(), storeCreateDTO.getImages()); // 이미지 파일 삭제 후 등록
         }
 
         return storeCreateDTO.getStoreCode();
@@ -100,8 +85,42 @@ public class StoreService {
         return storeDetail;
     }
 
+    // 관리자 장소 정보 수정
+    @Transactional
+    public void updateStore(int storeCode, StoreCreateDTO updateDTO) {
+        int locationCode = processLocation(updateDTO.getLocation()); // 지역 코드 중복 조회 후 없다면 등록
+
+        storeMapper.updateStore(storeCode, updateDTO, locationCode); // 장소 정보 수정
+
+        if (updateDTO.getImages() != null) { // 이미지 파일 있을때 만 이미지 등록 TODO: fileName incoding 적용 예정 [현재 fileName 제외 등록]
+            processImages(storeCode, updateDTO.getImages()); // 이미지 파일 삭제 후 등록
+        }
+    }
+  
     // 관리자 장소 상태 변경
     public void updateStoreStatus(int storeCode, StoreUpdateStatusDTO storeUpdateStatusDTO) {
         storeMapper.updateStoreStatus(storeCode, storeUpdateStatusDTO);
     }
+
+    // locationCode 중복 확인 및 등록수 locationCode 반환 메서드
+    private int processLocation(LocationDTO location) {
+        int locationCode = locationMapper.findLocationByCoordinates(location.getLatitude(), location.getLongitude());
+
+        if (locationCode == 0) {
+            locationService.registLocation(location);
+            locationCode = locationMapper.findLocationByCoordinates(location.getLatitude(), location.getLongitude());
+        }
+
+        return locationCode;
+    }
+
+    // image 파일 삭제 및 등록 매서드
+    private void processImages(int storeCode, List<ImageUploadDTO> images) {
+        imageService.deleteAllInStore(storeCode);
+
+        for (ImageUploadDTO image : images) {
+            imageService.saveImage(ImageType.STORE, storeCode, image);
+        }
+    }
+
 }

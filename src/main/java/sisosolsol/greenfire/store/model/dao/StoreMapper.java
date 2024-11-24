@@ -31,6 +31,10 @@ public interface StoreMapper {
     // 장소 상세 정보 조회
     StoreDetailDTO findStoreDetailByStoreCode(Integer storeCode);
 
+    // 관리자 장소 정보 수정
+    void updateStore(@Param("storeCode") int storeCode, @Param("updateDTO") StoreCreateDTO updateDTO, @Param("locationCode") int locationCode);
+  
     // 관리자 장소 상태 변경
     void updateStoreStatus(@Param("storeCode") int storeCode, @Param("storeUpdateStatusDTO") StoreUpdateStatusDTO storeUpdateStatusDTO);
+
 }

@@ -69,6 +69,13 @@ public class StoreController {
         return ResponseEntity.ok(storeDetail);
     }
 
+    // 관리자 장소 정보 수정
+    @PutMapping("/update/{storeCode}")
+    public ResponseEntity<StoreCreateDTO> updateStore (@PathVariable int storeCode, @RequestBody StoreCreateDTO updateDTO) {
+        storeService.updateStore(storeCode, updateDTO);
+        return ResponseEntity.ok(updateDTO);
+    }
+
     // 관리자 장소 상태 변경 TODO: 관리자 권한 체크 예정, enum 타입 관리 유효성 검사 적용 예정
     @PatchMapping("/change/{storeCode}")
     public ResponseEntity<StoreUpdateStatusDTO> updateStoreStatus(
@@ -78,4 +85,5 @@ public class StoreController {
         storeService.updateStoreStatus(storeCode, storeUpdateStatusDTO);
         return ResponseEntity.ok(storeUpdateStatusDTO);
     }
+
 }
