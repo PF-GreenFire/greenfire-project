@@ -11,6 +11,8 @@ import sisosolsol.greenfire.common.security.model.CustomUserDetails;
 import sisosolsol.greenfire.user.model.dao.UserMapper;
 import sisosolsol.greenfire.user.model.dto.UserDTO;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -19,17 +21,13 @@ public class UserService {
 
     public UserDTO getUserProfile(CustomUserDetails loginUser) {
         try {
-            UserDTO userDTO = userMapper.findByUserCode(loginUser.getId());
-            if (userDTO == null) {
-                throw new BadRequestException(ExceptionCode.UserNotFoundException);
-            }
-            return userDTO;
+            return Optional.ofNullable(userMapper.findByUserCode(loginUser.getId()))
+                    .orElseThrow(() -> new BadRequestException(ExceptionCode.UserNotFoundException));
+        } catch (DataIntegrityViolationException e) {
+            throw new BadRequestException(ExceptionCode.InvalidForeignKeyException);
         } catch (DataAccessException e) {
-            if (e instanceof DataIntegrityViolationException) {
-                throw new BadRequestException(ExceptionCode.InvalidForeignKeyException);
-            } else {
-                throw new BadRequestException(ExceptionCode.DatabaseAccessException);
-            }
+            throw new BadRequestException(ExceptionCode.DatabaseAccessException);
         }
     }
+
 }
