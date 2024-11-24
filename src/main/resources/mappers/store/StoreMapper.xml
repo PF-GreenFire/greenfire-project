@@ -179,4 +179,13 @@
             s.store_code = #{storeCode}
     </select>
 
+    <!-- 관리자 장소 상태 변경 -->
+    <update id="updateStoreStatus">
+        UPDATE
+            tbl_store
+        SET
+            store_status = #{storeUpdateStatusDTO.status}
+        WHERE
+            store_code = #{storeCode}
+    </update>
 </mapper>
