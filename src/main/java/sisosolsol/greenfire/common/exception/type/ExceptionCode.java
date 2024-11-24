@@ -13,6 +13,7 @@ public enum ExceptionCode {
      * 404: Not Found
      * 405: Method Not Allowed
      * 409: Conflict
+     * 500: Server Error
      */
 
     // 401 Error
@@ -22,6 +23,7 @@ public enum ExceptionCode {
     ACCESS_DENIED(403, "허가 되지 않은 요청입니다."),
 
     // 404 Error
+    USER_NOT_FOUND(404, "사용자를 찾을 수 없습니다."),
     CHALLENGE_NOT_FOUND(404, "존재하지 않는 챌린지입니다."),
 
     // 409 Error
@@ -35,7 +37,12 @@ public enum ExceptionCode {
     CHALLENGE_PAUSED(409, "일시중지된 챌린지입니다."),
     CHALLENGE_CANCEL_FAILED(409, "챌린지 취소에 실패했습니다."),
 
-    InvalidForeignKeyException(1100, "외래 키 제약을 위반한 요청입니다.");
+
+    InvalidForeignKeyException(1100, "외래 키 제약을 위반한 요청입니다."),
+    INVALID_FOREIGN_KEY(409, "외래 키 제약을 위반한 요청입니다."),
+
+    // 500 Error
+    DATABASE_ACCESS_ERROR(500, "데이터베이스 접근 중 오류가 발생했습니다.");
 
     private final int code;
     private final String message;
