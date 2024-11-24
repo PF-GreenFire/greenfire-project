@@ -3,10 +3,7 @@ package sisosolsol.greenfire.store.model.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sisosolsol.greenfire.common.page.SelectCriteria;
-import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
-import sisosolsol.greenfire.store.model.dto.StoreApplyListDTO;
-import sisosolsol.greenfire.store.model.dto.StoreDetailDTO;
-import sisosolsol.greenfire.store.model.dto.StoreListDTO;
+import sisosolsol.greenfire.store.model.dto.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,4 +33,8 @@ public interface StoreMapper {
 
     // 관리자 장소 정보 수정
     void updateStore(@Param("storeCode") int storeCode, @Param("updateDTO") StoreCreateDTO updateDTO, @Param("locationCode") int locationCode);
+  
+    // 관리자 장소 상태 변경
+    void updateStoreStatus(@Param("storeCode") int storeCode, @Param("storeUpdateStatusDTO") StoreUpdateStatusDTO storeUpdateStatusDTO);
+
 }

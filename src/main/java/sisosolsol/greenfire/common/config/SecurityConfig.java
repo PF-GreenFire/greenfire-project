@@ -47,6 +47,7 @@ public class SecurityConfig {
                         auth.requestMatchers("/api/admin/**").hasRole("ADMIN");
                         auth.requestMatchers("/api/manager/**").hasRole("MANAGER");
                         // 그 외 모든 리소스 (인증 필요)
+                        // auth.anyRequest().authenticated();
                         auth.anyRequest().permitAll();
                 })
                 .exceptionHandling(exceptionHandling -> {

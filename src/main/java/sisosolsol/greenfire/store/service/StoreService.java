@@ -12,10 +12,7 @@ import sisosolsol.greenfire.location.model.dao.LocationMapper;
 import sisosolsol.greenfire.location.model.dto.LocationDTO;
 import sisosolsol.greenfire.location.service.LocationService;
 import sisosolsol.greenfire.store.model.dao.StoreMapper;
-import sisosolsol.greenfire.store.model.dto.StoreCreateDTO;
-import sisosolsol.greenfire.store.model.dto.StoreApplyListDTO;
-import sisosolsol.greenfire.store.model.dto.StoreDetailDTO;
-import sisosolsol.greenfire.store.model.dto.StoreListDTO;
+import sisosolsol.greenfire.store.model.dto.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -99,8 +96,11 @@ public class StoreService {
             processImages(storeCode, updateDTO.getImages()); // 이미지 파일 삭제 후 등록
         }
     }
-
-
+  
+    // 관리자 장소 상태 변경
+    public void updateStoreStatus(int storeCode, StoreUpdateStatusDTO storeUpdateStatusDTO) {
+        storeMapper.updateStoreStatus(storeCode, storeUpdateStatusDTO);
+    }
 
     // locationCode 중복 확인 및 등록수 locationCode 반환 메서드
     private int processLocation(LocationDTO location) {
