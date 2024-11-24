@@ -22,11 +22,11 @@ public class UserService {
     public UserDTO getUserProfile(CustomUserDetails loginUser) {
         try {
             return Optional.ofNullable(userMapper.findByUserCode(loginUser.getId()))
-                    .orElseThrow(() -> new BadRequestException(ExceptionCode.UserNotFoundException));
+                    .orElseThrow(() -> new BadRequestException(ExceptionCode.USER_NOT_FOUND));
         } catch (DataIntegrityViolationException e) {
-            throw new BadRequestException(ExceptionCode.InvalidForeignKeyException);
+            throw new BadRequestException(ExceptionCode.INVALID_FOREIGN_KEY);
         } catch (DataAccessException e) {
-            throw new BadRequestException(ExceptionCode.DatabaseAccessException);
+            throw new BadRequestException(ExceptionCode.DATABASE_ACCESS_ERROR);
         }
     }
 
