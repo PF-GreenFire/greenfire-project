@@ -8,13 +8,6 @@ import java.util.UUID;
 
 @Mapper
 public interface LikeMapper {
-//    void saveStoreLike(@Param("userCode") UUID userCode,@Param("type") LikeType type,@Param("typeCode") int typeCode);
-//    void saveChallengeLike(@Param("userCode") UUID userCode,@Param("type") LikeType type,@Param("typeCode") int typeCode);
-//    void savePostLike(@Param("userCode") UUID userCode,@Param("type") LikeType type,@Param("typeCode") int typeCode);
-//
-//    void deleteStoreLike(@Param("userCode") UUID userCode,@Param("type") LikeType type,@Param("typeCode") int typeCode);
-//    void deleteChallengeLike(@Param("userCode") UUID userCode,@Param("type") LikeType type,@Param("typeCode") int typeCode);
-//    void deletePostLike(@Param("userCode") UUID userCode,@Param("type") LikeType type,@Param("typeCode") int typeCode);
 
     // 좋아요 여부 확인
     boolean isAlreadyLiked(@Param("userCode") UUID userCode, @Param("type") LikeType type, @Param("targetCode") Integer targetCode);

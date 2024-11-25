@@ -5,8 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import sisosolsol.greenfire.common.enums.like.LikeType;
 import sisosolsol.greenfire.like.model.dao.LikeMapper;
 import sisosolsol.greenfire.like.model.dto.LikeDTO;
 
@@ -14,7 +12,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class LikeService { // TODO: 등록, 취소 시 레디스 작업 실패시 예외 처리 예정 [DB랑 불일치 걱정]
+public class LikeService { // TODO: 등록, 취소 시 레디스 작업 실패시 예외 처리 예정 [DB랑 불일치 걱정], db에 저장 실패시 레디스에 데이터 삭제 하면 안되니까 추후 에러처리 및 로그, 알람? 방법 논의 후 적용. , 추후 시간 정해 자동 백업 되게 설정 예정.
 
     private final RedisTemplate<String, Object> redisTemplate;
     private final LikeMapper likeMapper;
