@@ -9,7 +9,6 @@ import sisosolsol.greenfire.challenge.model.dto.ChallengeSearchDTO;
 import sisosolsol.greenfire.challenge.service.ChallengeService;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,12 +34,13 @@ public class ChallengeController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/헐상세조회가이슈에없었어")
-    public ResponseEntity<List<ChallengeDTO>> getChallengeListByCategory(
-            @RequestBody ChallengeDTO challengeDTO
+    @GetMapping("/{challengeCode}")
+    public ResponseEntity<ChallengeDTO> getChallengeListDetails(
+            @PathVariable Integer challengeCode
     ) {
-        // 다음 이터레이션 때 구현할게요!!
-        return null;
+
+        ChallengeDTO result = challengeService.getChallengeDetails(challengeCode);
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/{challengeCode}/apply")

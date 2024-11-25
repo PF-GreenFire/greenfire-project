@@ -55,6 +55,13 @@ public class ChallengeService {
         return result;
     }
 
+    public ChallengeDTO getChallengeDetails(Integer challengeCode) {
+
+        ChallengeDTO challengeDetails = challengeMapper.selectChallengeByCode(challengeCode);
+
+        return challengeDetails;
+    }
+
     @Transactional
     public void applyChallenge(Integer challengeCode) {
 

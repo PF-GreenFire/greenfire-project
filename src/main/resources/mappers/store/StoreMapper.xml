@@ -196,6 +196,7 @@
             description = #{updateDTO.description},
             store_breaktime_hours = #{updateDTO.storeBreaktimeHours},
             user_code = #{updateDTO.userCode}::uuid
+    </update>
 
     <!-- 관리자 장소 상태 변경 -->
     <update id="updateStoreStatus">
