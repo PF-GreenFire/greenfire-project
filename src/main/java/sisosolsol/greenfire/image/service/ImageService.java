@@ -24,4 +24,6 @@ public class ImageService {
     public void deleteAllInPost(Integer postCode) {
         imageMapper.deleteAllInPost(postCode);
     }
+
+    public void deleteAllInStore(int storeCode) { imageMapper.deleteAllInStore(storeCode);}
 }
