@@ -38,6 +38,9 @@ public enum ExceptionCode {
     CHALLENGE_CANCEL_FAILED(409, "챌린지 취소에 실패했습니다."),
 
 
+    // 400 BAD REQUEST
+    POST_TYPE_MISMATCH(400, "적합하지 않은 게시물 타입입니다."),
+
     InvalidForeignKeyException(1100, "외래 키 제약을 위반한 요청입니다."),
     INVALID_FOREIGN_KEY(409, "외래 키 제약을 위반한 요청입니다."),
 

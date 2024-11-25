@@ -1,6 +1,7 @@
 package sisosolsol.greenfire.post.model.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import sisosolsol.greenfire.image.model.dto.ImageUploadDTO;
 import sisosolsol.greenfire.common.enums.post.PostType;
