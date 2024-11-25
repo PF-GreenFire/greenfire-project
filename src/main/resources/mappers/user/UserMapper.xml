@@ -18,18 +18,31 @@
 
     <select id="findByUserCode" resultMap="userResultMap">
         SELECT
-        user_code,
-        nickname,
-        name,
-        email,
-        birth,
-        gender,
-        phone,
-        status
-        FROM
-        tbl_user
+            user_code,
+            nickname,
+            name,
+            email,
+            birth,
+            gender,
+            phone,
+            status
+            FROM
+            tbl_user
         WHERE
-        user_code = CAST(#{userCode} AS uuid)
+            user_code = CAST(#{userCode} AS uuid)
         <!--        user_code = #{userCode, typeHandler=sisosolsol.greenfire.common.handler.UUIDTypeHandler}-->
     </select>
+
+    <update id="updateUserProfile">
+        UPDATE
+            tbl_user
+        SET
+            nickname = #{userDTO.nickname},
+            name = #{userDTO.name},
+            birth = #{userDTO.birth},
+            gender = #{userDTO.gender},
+            phone = #{userDTO.phone}
+        WHERE
+            user_code = CAST(#{userCode} AS uuid)
+    </update>
 </mapper>
