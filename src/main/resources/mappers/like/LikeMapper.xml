@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sisosolsol.greenfire.like.model.dao.LikeMapper">
+    <resultMap id="likeResultMap" type="sisosolsol.greenfire.like.model.dto.LikeDTO">
+        <id property="likeCode" column="like_code"/>
+        <result property="type" column="like_type"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="storeCode" column="store_code"/>
+        <result property="userCode" column="user_code"/>
+        <result property="postCode" column="post_code"/>
+        <result property="challengeCode" column="challenge_code"/>
+    </resultMap>
+
+    <!-- 좋아요 여부 확인 -->
+    <select id="isAlreadyLiked" resultType="boolean">
+        <choose>
+            <when test="type.name == 'POST'">
+                SELECT COUNT(*) > 0
+                FROM tbl_like
+                WHERE user_code = #{userCode}::uuid
+                AND post_code = #{targetCode}
+            </when>
+            <when test="type.name == 'CHALLENGE'">
+                SELECT COUNT(*) > 0
+                FROM tbl_like
+                WHERE user_code = #{userCode}::uuid
+                AND challenge_code = #{targetCode}
+            </when>
+            <when test="type.name == 'STORE'">
+                SELECT COUNT(*) > 0
+                FROM tbl_like
+                WHERE user_code = #{userCode}::uuid
+                AND store_code = #{targetCode}
+            </when>
+        </choose>
+    </select>
+
+    <!-- 좋아요 삭제 -->
+    <delete id="deleteLike">
+        <choose>
+            <when test="type.name == 'POST'">
+                DELETE FROM tbl_like
+                WHERE user_code = #{userCode}::uuid
+                AND post_code = #{targetCode}
+            </when>
+            <when test="type.name == 'CHALLENGE'">
+                DELETE FROM tbl_like
+                WHERE user_code = #{userCode}::uuid
+                AND challenge_code = #{targetCode}
+            </when>
+            <when test="type.name == 'STORE'">
+                DELETE FROM tbl_like
+                WHERE user_code = #{userCode}::uuid
+                AND store_code = #{targetCode}
+            </when>
+        </choose>
+    </delete>
+
+    <!-- 좋아요 추가 -->
+    <insert id="insertLike">
+        <choose>
+            <when test="type.name == 'POST'">
+                INSERT INTO tbl_like (like_type, user_code, post_code) VALUES (#{type}, #{userCode}::uuid, #{targetCode});
+            </when>
+            <when test="type.name == 'CHALLENGE'">
+                INSERT INTO tbl_like (like_type, user_code, challenge_code) VALUES (#{type}, #{userCode}::uuid, #{targetCode});
+            </when>
+            <when test="type.name == 'STORE'">
+                INSERT INTO tbl_like (like_type, user_code, store_code) VALUES (#{type}, #{userCode}::uuid, #{targetCode});
+            </when>
+        </choose>
+    </insert>
+
+
+
+</mapper>
