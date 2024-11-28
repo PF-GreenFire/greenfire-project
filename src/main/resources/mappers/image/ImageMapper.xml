@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sisosolsol.greenfire.image.model.dao.ImageMapper">
+
+    <!-- 글 이미지 등록 -->
+    <insert id="savePostImage" useGeneratedKeys="true" keyProperty="categoryCode">
+        INSERT INTO
+            tbl_image (post_code, path, origin_name, file_name)
+        VALUES
+            (#{postCode}, #{image.path}, #{image.origin_name}, #{image.file_name})
+    </insert>
+
+    <!-- 장소 이미지 등록 -->
+    <insert id="saveStoreImage" useGeneratedKeys="true" keyProperty="image.imageCode">
+        INSERT INTO
+            tbl_image (store_code, path, origin_name, file_name, "order")
+        VALUES
+            (
+                #{storeCode}, #{image.path}, #{image.originName}, #{image.fileName},
+                (
+                    SELECT
+                        COALESCE(MAX("order"), 0) + 1
+                    FROM
+                        tbl_image
+                    WHERE
+                        store_code = #{storeCode}
+                )
+            )
+    </insert>
+
+    <!-- 글 전체 이미지 삭제 -->
+    <delete id="deleteAllInPost">
+        DELETE FROM tbl_image
+        WHERE post_code = #{postCode}
+    </delete>
+
+    <!-- 장소 전체 이미지 삭제 -->
+    <delete id="deleteAllInStore">
+        DELETE FROM tbl_image
+        WHERE store_code = #{storeCode}
+    </delete>
+
+</mapper>

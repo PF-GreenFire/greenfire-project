@@ -3,9 +3,11 @@ package sisosolsol.greenfire.challenge.model.dto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import sisosolsol.greenfire.common.ChallengeStatus;
+import sisosolsol.greenfire.common.enums.challenge.ChallengeStatus;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -13,13 +15,13 @@ import java.time.LocalDateTime;
 public class ChallengeCreateDTO {
 
     private Integer challengeCode;
-    private LocalDateTime createdAt;
-    private String challengeName;
+    private OffsetDateTime createdAt;
+    private String challengeTitle;
     private String challengeContent;
     private Integer recruitmentNum;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private Integer hostMember;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private UUID hostUser;
     private Integer xp;
     private String thumbnailUrl;
     private Integer challengeCategoryCode;
