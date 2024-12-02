@@ -5,13 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sisosolsol.greenfire.challenge.model.dao.ChallengeMapper;
-import sisosolsol.greenfire.challenge.model.dto.ChallengeCreateDTO;
-import sisosolsol.greenfire.challenge.model.dto.ChallengeDTO;
-import sisosolsol.greenfire.challenge.model.dto.ChallengePartDTO;
-import sisosolsol.greenfire.challenge.model.dto.ChallengeSearchCondition;
-import sisosolsol.greenfire.challenge.model.dto.ChallengeSearchDTO;
+import sisosolsol.greenfire.challenge.model.dto.*;
 import sisosolsol.greenfire.common.enums.challenge.ChallengeStatus;
 import sisosolsol.greenfire.common.exception.CustomException;
+import sisosolsol.greenfire.common.exception.type.ExceptionCode;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -117,6 +114,16 @@ public class ChallengeService {
         int result = challengeMapper.cancelChallengePart(challengeCode, UUID.fromString(userCode));
         if (result == 0) {
             throw new CustomException(CHALLENGE_CANCEL_FAILED);
+        }
+    }
+
+    @Transactional
+    public void updateChallenge(Integer challengeCode, ChallengeUpdateDTO updateDTO) {
+        try {
+            challengeMapper.updateChallenge(challengeCode, updateDTO);
+        } catch (Exception e) {
+            log.error("Challenge update failed: ", e);
+            throw new CustomException(ExceptionCode.DATABASE_ACCESS_ERROR);
         }
     }
 

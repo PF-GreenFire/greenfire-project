@@ -134,4 +134,21 @@
             AND user_code = #{userCode}::uuid
     </delete>
 
+    <update id="updateChallenge">
+        UPDATE
+            tbl_challenge
+        SET
+            challenge_title = #{updateDTO.challengeTitle},
+            challenge_content = #{updateDTO.challengeContent},
+            recruitment_num = #{updateDTO.recruitmentNum},
+            start_date = #{updateDTO.startDate},
+            end_date = #{updateDTO.endDate},
+            xp = #{updateDTO.xp},
+            thumbnail_url = #{updateDTO.thumbnailUrl},
+            challenge_category_code = #{updateDTO.challengeCategoryCode},
+            challenge_status = #{updateDTO.challengeStatus}
+        WHERE challenge_code = #{challengeCode}
+        AND challenge_status NOT IN ('CANCELLED', 'CLOSED', 'PAUSED')
+    </update>
+
 </mapper>
