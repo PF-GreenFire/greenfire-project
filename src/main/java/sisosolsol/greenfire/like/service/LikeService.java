@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import sisosolsol.greenfire.common.enums.like.LikeType;
 import sisosolsol.greenfire.like.model.dao.LikeMapper;
 import sisosolsol.greenfire.like.model.dto.LikeDTO;
 
@@ -75,6 +76,7 @@ public class LikeService { // TODO: 등록, 취소 시 레디스 작업 실패�
     public String toggleLike(LikeDTO likeDTO, UUID userCode) {
         // Redis Key 생성
         String redisKey = String.format("like:%s:%s:%d", userCode.toString(), likeDTO.getType().name(), likeDTO.getTargetCode());
+        String countKey = String.format("like_count:%s:%d", likeDTO.getType().name(), likeDTO.getTargetCode());
 
         // 이미 좋아요 눌렀는지 여부 확인 (Redis에서 확인)
         if (redisTemplate.hasKey(redisKey)) {
@@ -86,6 +88,10 @@ public class LikeService { // TODO: 등록, 취소 시 레디스 작업 실패�
             likeMapper.deleteLike(userCode, likeDTO.getType(), likeDTO.getTargetCode());
             log.info("데이터베이스에서 좋아요 삭제됨. 유저: {}, 타입: {}, 타겟: {}", userCode, likeDTO.getType(), likeDTO.getTargetCode());
 
+            // 좋아요 갯수 -1
+            redisTemplate.opsForValue().decrement(countKey);
+            log.info("레디스 좋아요 갯수 -1 키(like_count:like타입:target번호): {}", countKey);
+
             return "좋아요가 취소 되었습니다.";
         } else {
             // 좋아요 추가
@@ -96,8 +102,23 @@ public class LikeService { // TODO: 등록, 취소 시 레디스 작업 실패�
             likeMapper.insertLike(userCode, likeDTO.getType(), likeDTO.getTargetCode());
             log.info("데이터베이스에 좋아요 추가됨. 유저: {}, 타입: {}, 타겟: {}", userCode, likeDTO.getType(), likeDTO.getTargetCode());
 
+            // 좋아요 갯수 +1
+            redisTemplate.opsForValue().increment(countKey);
+            log.info("레디스 좋아요 갯수 +1 키(like_count:like타입:target번호): {}", countKey);
+
             return "좋아요가 추가 되었습니다.";
         }
     }
 
+    // 좋아요 개수 조회 [redis 조회]
+    public int getLikeCount(LikeType likeType, int targetCode) {
+        String redisKey = String.format("like_count:%s:%d", likeType.name(), targetCode);
+
+        String count = (String) redisTemplate.opsForValue().get(redisKey);
+
+        if (count == null) {
+            return 0;// Redis에 값이 없을땐 기본값 0으로 설정
+        }
+        return Integer.parseInt(count);
+    }
 }
