@@ -1,10 +1,8 @@
 package sisosolsol.greenfire.challenge.model.dao;
 
 import org.apache.ibatis.annotations.Mapper;
-import sisosolsol.greenfire.challenge.model.dto.ChallengeCreateDTO;
-import sisosolsol.greenfire.challenge.model.dto.ChallengeDTO;
-import sisosolsol.greenfire.challenge.model.dto.ChallengePartDTO;
-import sisosolsol.greenfire.challenge.model.dto.ChallengeSearchCondition;
+import org.apache.ibatis.annotations.Param;
+import sisosolsol.greenfire.challenge.model.dto.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,4 +25,6 @@ public interface ChallengeMapper {
     ChallengePartDTO selectChallengePart(Integer challengeCode, UUID userCode);
 
     int cancelChallengePart(Integer challengeCode, UUID userCode);
+
+    void updateChallenge(@Param("challengeCode") Integer challengeCode, @Param("updateDTO") ChallengeUpdateDTO updateDTO);
 }
