@@ -3,6 +3,7 @@ package sisosolsol.greenfire.user.model.dao;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import sisosolsol.greenfire.user.model.dto.UserDTO;
+import sisosolsol.greenfire.user.model.dto.UserDetailResponseDTO;
 import sisosolsol.greenfire.user.model.dto.UserListResponseDTO;
 import sisosolsol.greenfire.user.model.dto.UserUpdateDTO;
 
@@ -20,4 +21,5 @@ public interface UserMapper {
     // 관리자
     List<UserListResponseDTO> findAll();
 
+    UserDetailResponseDTO findDetailByUserCode(UUID userCode);
 }

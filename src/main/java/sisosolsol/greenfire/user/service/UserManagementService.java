@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 import sisosolsol.greenfire.common.exception.BadRequestException;
 import sisosolsol.greenfire.common.exception.type.ExceptionCode;
 import sisosolsol.greenfire.user.model.dao.UserMapper;
+import sisosolsol.greenfire.user.model.dto.UserDetailResponseDTO;
 import sisosolsol.greenfire.user.model.dto.UserListResponseDTO;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,15 @@ public class UserManagementService {
                     .orElseThrow(() -> new BadRequestException(ExceptionCode.USER_NOT_FOUND));
         } catch (DataIntegrityViolationException e) {
             throw new BadRequestException(ExceptionCode.INVALID_FOREIGN_KEY);
+        } catch (DataAccessException e) {
+            throw new BadRequestException(ExceptionCode.DATABASE_ACCESS_ERROR);
+        }
+    }
+
+    public UserDetailResponseDTO getUserDetail(UUID userCode) {
+        try {
+            return Optional.ofNullable(userMapper.findDetailByUserCode(userCode))
+                    .orElseThrow(() -> new BadRequestException(ExceptionCode.USER_NOT_FOUND));
         } catch (DataAccessException e) {
             throw new BadRequestException(ExceptionCode.DATABASE_ACCESS_ERROR);
         }
